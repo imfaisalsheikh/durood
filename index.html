@@ -244,22 +244,6 @@
     return;
   }
 
-  // Add manual count to today's counter
-  count += manual;
-  localStorage.setItem("duroodCount", count);
-  document.getElementById("count").innerText = count;
-
-  // Store optional note (for future reference, optional)
-  let notes = JSON.parse(localStorage.getItem("duroodNotes") || "[]");
-  notes.push({date: new Date().toLocaleDateString(), count: manual, note: note});
-  localStorage.setItem("duroodNotes", JSON.stringify(notes));
-
-  // Reset fields
-  document.getElementById("manualCount").value = "";
-  document.getElementById("planText").value = "";
-
-  alert(lang === "ur" ? "اللہ قبول فرمائے 🤍" : "May Allah accept 🤍");
-}
 
 </script>
 
