@@ -1,0 +1,25 @@
+body {
+  font-family: system-ui;
+  background: #f4f7f5;
+  text-align: center;
+  padding: 25px;
+  direction: rtl;
+}
+
+h1 {
+  color: #0a5c36;
+}
+
+button {
+  font-size: 22px;
+  padding: 12px 24px;
+  background: #0a5c36;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+.note {
+  color: #555;
+  font-size: 14px;
+}
