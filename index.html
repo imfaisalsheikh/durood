@@ -2,7 +2,7 @@
 <html lang="ur">
 <head>
   <meta charset="UTF-8">
-  <title>Durood</title>
+  <title>Durood Sharif</title>
 
   <style>
     body {
@@ -105,12 +105,44 @@
       margin-top: 8px;
     }
 
-    .lang-toggle {
-      font-size: 13px;
+    /* Language toggle buttons */
+    .lang-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .lang-buttons button {
+      width: auto;
+      padding: 8px 18px;
+      font-size: 14px;
+      border-radius: 20px;
+      border: 1px solid #0a5c36;
       background: transparent;
       color: #0a5c36;
-      border: 1px solid #0a5c36;
-      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .lang-buttons button.active {
+      background: #0a5c36;
+      color: #ffffff;
+    }
+
+    /* Manual entry */
+    .manual-entry input,
+    .manual-entry textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    .manual-entry button {
+      margin-top: 0;
     }
   </style>
 </head>
@@ -119,15 +151,11 @@
 
 <div class="container">
 
-<div class="lang-switch">
-  <span id="urLabel">اردو</span>
-  <label class="switch">
-    <input type="checkbox" id="langCheck" onchange="toggleLang()">
-    <span class="slider"></span>
-  </label>
-  <span id="enLabel">EN</span>
-</div>
-
+  <!-- Language toggle -->
+  <div class="lang-buttons">
+    <button id="btnUr" onclick="setLang('ur')">اردو</button>
+    <button id="btnEn" onclick="setLang('en')">English</button>
+  </div>
 
   <h1 id="title"></h1>
   <div class="subtitle" id="subtitle"></div>
@@ -136,116 +164,3 @@
   <div id="count" class="counter">0</div>
 
   <button onclick="increase()" id="addBtn"></button>
-  <button class="reset" onclick="reset()" id="resetBtn"></button>
-
-  <div class="note" id="note"></div>
-
-  <div class="divider"></div>
-
-  <div class="whatsapp-box">
-    <p id="shareText"></p>
-    <a class="share" id="waLink" target="_blank">WhatsApp</a>
-  </div>
-
-  <div class="divider"></div>
-
-  <div class="label" id="goalLabel"></div>
-  <div class="goal" id="goalText"></div>
-
-</div>
-
-<script>
-  let count = localStorage.getItem("duroodCount") || 0;
-  document.getElementById("count").innerText = count;
-
-  let lang = localStorage.getItem("lang") || "ur";
-
-  const content = {
-    ur: {
-      dir: "rtl",
-      title: "درود شریف",
-      subtitle: "خاموشی سے پڑھیں، اللہ جانتا ہے 🤍",
-      countLabel: "آپ کا آج کا کاؤنٹ",
-      addBtn: "+1 درود",
-      resetBtn: "ری سیٹ",
-      note: "یہ کاؤنٹ صرف آپ کے موبائل یا براؤزر میں محفوظ رہتا ہے",
-      shareText: "اس نیکی میں دوسروں کو بھی شامل کریں",
-      waText: "آئیں درود شریف پڑھنے کی نیکی میں شامل ہوں 🤍",
-      goalLabel: "ماہانہ ہدف",
-      goalText: "1,000,000 درود شریف"
-    },
-    en: {
-      dir: "ltr",
-      title: "Durood Sharif",
-      subtitle: "Recite quietly. Allah knows 🤍",
-      countLabel: "Your count today",
-      addBtn: "+1 Durood",
-      resetBtn: "Reset",
-      note: "This count is stored only on your device",
-      shareText: "Invite others to this good deed",
-      waText: "Join this beautiful act of reciting Durood 🤍",
-      goalLabel: "Monthly Goal",
-      goalText: "1,000,000 Durood"
-    }
-  };
-
-  function applyLang() {
-    document.body.dir = content[lang].dir;
-    document.documentElement.lang = lang;
-
-    title.innerText = content[lang].title;
-    subtitle.innerText = content[lang].subtitle;
-    countLabel.innerText = content[lang].countLabel;
-    addBtn.innerText = content[lang].addBtn;
-    resetBtn.innerText = content[lang].resetBtn;
-    note.innerText = content[lang].note;
-    shareText.innerText = content[lang].shareText;
-    goalLabel.innerText = content[lang].goalLabel;
-    goalText.innerText = content[lang].goalText;
-
-    waLink.href =
-      "https://wa.me/?text=" +
-      encodeURIComponent(content[lang].waText + "\nhttps://yourdomain.com");
-  }
-
-  function toggleLang() {
-    lang = lang === "ur" ? "en" : "ur";
-    localStorage.setItem("lang", lang);
-    applyLang();
-  }
-
-  function increase() {
-    count++;
-    localStorage.setItem("duroodCount", count);
-    document.getElementById("count").innerText = count;
-  }
-
-  function reset() {
-    localStorage.removeItem("duroodCount");
-    count = 0;
-    document.getElementById("count").innerText = count;
-  }
-
-  applyLang();
-  <div class="manual-entry">
-  <input type="number" id="manualCount" placeholder="اپنی آج کی تعداد درج کریں / Enter your count" style="width:70%; padding:8px; border-radius:8px; border:1px solid #ccc; margin-bottom:10px;">
-  <button onclick="submitManual()">جمع کریں / Submit</button>
-
-  <textarea id="planText" placeholder="اپنا پلان یا نوٹ درج کریں / Optional note" rows="2" style="width:100%; padding:8px; border-radius:8px; border:1px solid #ccc; margin-top:8px;"></textarea>
-</div>
-
-
-  function submitManual() {
-  const manual = parseInt(document.getElementById("manualCount").value) || 0;
-  const note = document.getElementById("planText").value;
-
-  if (manual <= 0) {
-    alert(lang === "ur" ? "براہ کرم درست تعداد درج کریں" : "Please enter a valid number");
-    return;
-  }
-
-
-</script>
-
-</body>
-</html>
