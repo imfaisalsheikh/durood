@@ -41,20 +41,13 @@
             document.getElementById('month-label').innerText = getMonthName();
         }
 
-        // Real-time synchronization
         onValue(counterRef, (snapshot) => {
             const data = snapshot.val();
             const currentMonthKey = getCurrentMonthKey();
 
             if (!data) {
-                // First time setup
-                set(counterRef, {
-                    total: 0,
-                    monthlyTarget: 100000,
-                    monthKey: currentMonthKey
-                });
+                set(counterRef, { total: 0, monthlyTarget: 100000, monthKey: currentMonthKey });
             } else if (data.monthKey !== currentMonthKey) {
-                // Monthly Rollover Logic
                 const leftover = Math.max(0, (data.monthlyTarget || 100000) - (data.total || 0));
                 set(counterRef, {
                     total: 0,
@@ -79,50 +72,50 @@
         };
     </script>
     <style>
-        :root { --primary: #1a5e63; --accent: #27ae60; --bg: #f0f4f8; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); margin: 0; padding: 20px; display: flex; justify-content: center; }
-        .card { background: white; width: 100%; max-width: 400px; padding: 30px; border-radius: 25px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); text-align: center; }
-        .header-box { background: #e0f2f1; padding: 15px; border-radius: 15px; margin-bottom: 25px; }
-        #month-label { color: var(--primary); font-weight: bold; text-transform: uppercase; font-size: 0.8rem; }
-        #main-counter { font-size: 5rem; color: #333; font-weight: 800; margin: 10px 0; line-height: 1; }
-        .target-remaining { color: #c0392b; font-size: 1.2rem; font-weight: bold; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 30px 0; }
-        .btn-durood { border: 2px solid #eee; border-radius: 15px; padding: 15px; cursor: pointer; transition: 0.2s; background: white; }
-        .btn-durood:hover { border-color: var(--accent); background: #f9fffb; }
+        :root { --primary: #2c3e50; --accent: #27ae60; --bg: #f8f9fa; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); margin: 0; padding: 20px; display: flex; justify-content: center; }
+        .card { background: white; width: 100%; max-width: 400px; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align: center; }
+        .header-box { background: #e8f5e9; padding: 15px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #c8e6c9; }
+        #month-label { color: #2e7d32; font-weight: bold; font-size: 0.85rem; letter-spacing: 1px; }
+        #main-counter { font-size: 4.5rem; color: var(--primary); font-weight: 800; margin: 15px 0; }
+        .target-remaining { color: #d32f2f; font-size: 1.1rem; font-weight: bold; margin-top: 5px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; }
+        .btn-durood { border: 2px solid #edf2f7; border-radius: 12px; padding: 20px 10px; cursor: pointer; transition: all 0.2s; background: white; font-weight: bold; color: var(--primary); }
+        .btn-durood:hover { border-color: var(--accent); background: #f0fff4; color: var(--accent); }
         .btn-durood:active { transform: scale(0.95); }
-        .btn-durood img { width: 100%; height: auto; border-radius: 10px; margin-bottom: 10px; }
-        .manual-input { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
-        input { padding: 12px; border: 1px solid #ddd; border-radius: 10px; width: 100px; text-align: center; font-size: 1rem; }
-        button { padding: 12px 20px; background: var(--accent); color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; margin-left: 5px; }
+        .btn-durood span { display: block; font-size: 1.2rem; margin-bottom: 5px; }
+        .manual-input { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; display: flex; justify-content: center; gap: 10px; }
+        input { padding: 10px; border: 2px solid #eee; border-radius: 8px; width: 80px; text-align: center; font-size: 1rem; outline: none; }
+        input:focus { border-color: var(--accent); }
+        button { padding: 10px 20px; background: var(--accent); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #219150; }
     </style>
 </head>
 <body>
 
 <div class="card">
     <div class="header-box">
-        <div id="month-label">Loading...</div>
-        <div class="target-remaining">Target Left: <span id="remaining-target">0</span></div>
+        <div id="month-label">LOADING...</div>
+        <div class="target-remaining">Target Remaining: <span id="remaining-target">0</span></div>
     </div>
 
-    <div style="color: #7f8c8d; font-size: 0.9rem;">Total Recitations</div>
+    <div style="color: #94a3b8; font-size: 0.9rem; font-weight: 600;">TOTAL RECITATIONS</div>
     <div id="main-counter">0</div>
 
     <div class="grid">
         <div class="btn-durood" onclick="addCount(1)">
-            <img src="https://img.icons8.com/color/96/mosque.png" alt="Duroood">
-            <strong>Durood 1</strong>
-            <div><small>Click to +1</small></div>
+            <span>📿</span>
+            Durood Ibrahim
         </div>
         <div class="btn-durood" onclick="addCount(1)">
-            <img src="https://img.icons8.com/color/96/prow-bow.png" alt="Durood">
-            <strong>Durood 2</strong>
-            <div><small>Click to +1</small></div>
+            <span>✨</span>
+            Short Durood
         </div>
     </div>
 
     <div class="manual-input">
-        <input type="number" id="manualNum" placeholder="Amount">
-        <button onclick="addManual()">Add</button>
+        <input type="number" id="manualNum" placeholder="Qty">
+        <button onclick="addManual()">Submit</button>
     </div>
 </div>
 
