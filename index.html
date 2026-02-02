@@ -119,7 +119,15 @@
 
 <div class="container">
 
-  <button class="lang-toggle" onclick="toggleLang()">اردو / English</button>
+<div class="lang-switch">
+  <span id="urLabel">اردو</span>
+  <label class="switch">
+    <input type="checkbox" id="langCheck" onchange="toggleLang()">
+    <span class="slider"></span>
+  </label>
+  <span id="enLabel">EN</span>
+</div>
+
 
   <h1 id="title"></h1>
   <div class="subtitle" id="subtitle"></div>
