@@ -227,6 +227,40 @@
   }
 
   applyLang();
+  <div class="manual-entry">
+  <input type="number" id="manualCount" placeholder="اپنی آج کی تعداد درج کریں / Enter your count" style="width:70%; padding:8px; border-radius:8px; border:1px solid #ccc; margin-bottom:10px;">
+  <button onclick="submitManual()">جمع کریں / Submit</button>
+
+  <textarea id="planText" placeholder="اپنا پلان یا نوٹ درج کریں / Optional note" rows="2" style="width:100%; padding:8px; border-radius:8px; border:1px solid #ccc; margin-top:8px;"></textarea>
+</div>
+
+
+  function submitManual() {
+  const manual = parseInt(document.getElementById("manualCount").value) || 0;
+  const note = document.getElementById("planText").value;
+
+  if (manual <= 0) {
+    alert(lang === "ur" ? "براہ کرم درست تعداد درج کریں" : "Please enter a valid number");
+    return;
+  }
+
+  // Add manual count to today's counter
+  count += manual;
+  localStorage.setItem("duroodCount", count);
+  document.getElementById("count").innerText = count;
+
+  // Store optional note (for future reference, optional)
+  let notes = JSON.parse(localStorage.getItem("duroodNotes") || "[]");
+  notes.push({date: new Date().toLocaleDateString(), count: manual, note: note});
+  localStorage.setItem("duroodNotes", JSON.stringify(notes));
+
+  // Reset fields
+  document.getElementById("manualCount").value = "";
+  document.getElementById("planText").value = "";
+
+  alert(lang === "ur" ? "اللہ قبول فرمائے 🤍" : "May Allah accept 🤍");
+}
+
 </script>
 
 </body>
