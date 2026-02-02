@@ -76,12 +76,28 @@
       background: #eee;
     }
 
+    .whatsapp-box {
+      background: #f3faf6;
+      border: 1px dashed #0a5c36;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    .whatsapp-box p {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
     a.share {
       display: block;
-      margin-top: 18px;
       text-decoration: none;
-      font-size: 15px;
-      color: #0a5c36;
+      font-size: 16px;
+      color: #ffffff;
+      background: #25D366;
+      padding: 12px;
+      border-radius: 8px;
     }
 
     .goal {
@@ -108,4 +124,48 @@
     <button class="reset" onclick="reset()">ری سیٹ</button>
 
     <div class="note">
-      یہ کاؤنٹ صرف آپ کے
+      یہ کاؤنٹ صرف آپ کے موبائل یا براؤزر میں محفوظ رہتا ہے
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- WhatsApp Section -->
+    <div class="whatsapp-box">
+      <p>
+        اس نیکی میں دوسروں کو بھی شامل کریں
+      </p>
+
+      <a class="share"
+         href="https://wa.me/?text=آئیں درود شریف پڑھنے کی نیکی میں شامل ہوں 🤍
+https://yourdomain.com"
+         target="_blank">
+        📤 WhatsApp پر شئیر کریں
+      </a>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="label">ماہانہ ہدف</div>
+    <div class="goal">1,000,000 درود شریف</div>
+
+  </div>
+
+<script>
+  let count = localStorage.getItem("duroodCount") || 0;
+  document.getElementById("count").innerText = count;
+
+  function increase() {
+    count++;
+    localStorage.setItem("duroodCount", count);
+    document.getElementById("count").innerText = count;
+  }
+
+  function reset() {
+    localStorage.removeItem("duroodCount");
+    count = 0;
+    document.getElementById("count").innerText = count;
+  }
+</script>
+
+</body>
+</html>
