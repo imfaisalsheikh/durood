@@ -2,60 +2,110 @@
 <html lang="ur">
 <head>
   <meta charset="UTF-8">
-  <title>Durood Campaign</title>
+  <title>درود شریف</title>
+
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f8f8f8;
-      text-align: center;
-      padding: 30px;
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      background: #eef3f0;
       direction: rtl;
     }
+
+    .container {
+      max-width: 420px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 30px 20px;
+      border-radius: 14px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+
+    h1 {
+      color: #0a5c36;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      color: #555;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    .label {
+      font-size: 15px;
+      color: #333;
+      margin-top: 20px;
+    }
+
+    .counter {
+      font-size: 48px;
+      font-weight: bold;
+      color: #0a5c36;
+      margin: 15px 0 25px;
+    }
+
     button {
+      width: 100%;
       font-size: 20px;
-      padding: 10px 20px;
-      margin: 10px;
+      padding: 14px;
+      background: #0a5c36;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+
+    .reset {
+      background: #cccccc;
+      color: #333;
+      font-size: 16px;
+    }
+
+    .note {
+      font-size: 13px;
+      color: #666;
+      margin-top: 18px;
+    }
+
+    .divider {
+      margin: 25px 0;
+      height: 1px;
+      background: #eee;
+    }
+
+    a.share {
+      display: block;
+      margin-top: 18px;
+      text-decoration: none;
+      font-size: 15px;
+      color: #0a5c36;
+    }
+
+    .goal {
+      font-size: 14px;
+      color: #444;
+      margin-top: 8px;
     }
   </style>
 </head>
+
 <body>
 
-<h1>درود شریف مہم</h1>
-<p>خاموشی سے پڑھیں، اللہ جانتا ہے 🤍</p>
+  <div class="container">
 
-<h2>آپ کا آج کا کاؤنٹ</h2>
-<h1 id="count">0</h1>
+    <h1>درود شریف</h1>
+    <div class="subtitle">
+      خاموشی سے پڑھیں، اللہ جانتا ہے 🤍
+    </div>
 
-<button onclick="increase()">+1</button>
-<button onclick="reset()">ری سیٹ</button>
+    <div class="label">آپ کا آج کا کاؤنٹ</div>
+    <div id="count" class="counter">0</div>
 
-<script>
-let count = localStorage.getItem("duroodCount") || 0;
-document.getElementById("count").innerText = count;
+    <button onclick="increase()">+1 درود</button>
+    <button class="reset" onclick="reset()">ری سیٹ</button>
 
-function increase() {
-  count++;
-  localStorage.setItem("duroodCount", count);
-  document.getElementById("count").innerText = count;
-}
-
-function reset() {
-  localStorage.removeItem("duroodCount");
-  count = 0;
-  document.getElementById("count").innerText = count;
-}
-</script>
-
-  <a href="https://wa.me/?text=آئیں درود شریف کی مہم میں شامل ہوں 🤍
-https://yourdomain.com" target="_blank">
-📤 WhatsApp پر شئیر کریں
-</a>
-  <h3>ماہانہ ہدف</h3>
-<p>1,000,000 درود شریف</p>
-
-
-</body>
-</html>
-
-
-
+    <div class="note">
+      یہ کاؤنٹ صرف آپ کے
