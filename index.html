@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+  <meta charset="UTF-8">
+  <title>Durood Campaign</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      text-align: center;
+      padding: 30px;
+      direction: rtl;
+    }
+    button {
+      font-size: 20px;
+      padding: 10px 20px;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>درود شریف مہم</h1>
+<p>خاموشی سے پڑھیں، اللہ جانتا ہے 🤍</p>
+
+<h2>آپ کا آج کا کاؤنٹ</h2>
+<h1 id="count">0</h1>
+
+<button onclick="increase()">+1</button>
+<button onclick="reset()">ری سیٹ</button>
+
+<script>
+let count = localStorage.getItem("duroodCount") || 0;
+document.getElementById("count").innerText = count;
+
+function increase() {
+  count++;
+  localStorage.setItem("duroodCount", count);
+  document.getElementById("count").innerText = count;
+}
+
+function reset() {
+  localStorage.removeItem("duroodCount");
+  count = 0;
+  document.getElementById("count").innerText = count;
+}
+</script>
+
+</body>
+</html>
