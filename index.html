@@ -4,17 +4,23 @@
   <meta charset="UTF-8">
   <title>Durood</title>
   <link rel="stylesheet" href="style.css">
-
   <style>
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
-      background: #eef3f0;
+    /* New Layout Styles */
+    .main-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 20px;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
     }
 
+    /* Keep your existing container as the center piece */
     .container {
+      flex: 1;
       max-width: 420px;
-      margin: 40px auto;
+      margin: 0; /* Override previous margin */
       background: #ffffff;
       padding: 30px 20px;
       border-radius: 14px;
@@ -22,128 +28,102 @@
       text-align: center;
     }
 
-    h1 {
-      color: #0a5c36;
-      margin-bottom: 6px;
+    /* The Side Cards Column */
+    .side-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 200px;
     }
 
-    .subtitle {
-      color: #555;
-      font-size: 14px;
-      margin-bottom: 25px;
-    }
-
-    .label {
-      font-size: 15px;
-      color: #333;
-      margin-top: 20px;
-    }
-
-    .counter {
-      font-size: 48px;
-      font-weight: bold;
-      color: #0a5c36;
-      margin: 15px 0 25px;
-    }
-
-    button {
-      width: 100%;
-      font-size: 18px;
-      padding: 14px;
-      background: #0a5c36;
-      color: #ffffff;
-      border: none;
-      border-radius: 10px;
+    .card {
+      background: white;
+      border: 2px solid #0a5c36;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
       cursor: pointer;
-      margin-bottom: 12px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
     }
 
-    .reset {
-      background: #cccccc;
-      color: #333;
-      font-size: 15px;
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
     }
 
-    .note {
-      font-size: 13px;
-      color: #666;
-      margin-top: 18px;
-    }
-
-    .divider {
-      margin: 25px 0;
-      height: 1px;
-      background: #eee;
-    }
-
-    .whatsapp-box {
-      background: #f3faf6;
-      border: 1px dashed #0a5c36;
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 15px;
-    }
-
-    .whatsapp-box p {
-      font-size: 14px;
-      color: #333;
-      margin-bottom: 10px;
-    }
-
-    a.share {
-      display: block;
-      text-decoration: none;
-      font-size: 16px;
-      color: #ffffff;
-      background: #25D366;
-      padding: 12px;
-      border-radius: 8px;
-    }
-
-    .goal {
-      font-size: 14px;
-      color: #444;
-      margin-top: 8px;
-    }
-
-    .lang-toggle {
-      font-size: 13px;
-      background: transparent;
+    .card h3 {
+      margin: 0;
       color: #0a5c36;
-      border: 1px solid #0a5c36;
-      margin-bottom: 20px;
+      font-size: 18px;
+    }
+
+    .card p {
+      margin: 5px 0 0;
+      font-size: 12px;
+      color: #666;
+    }
+
+    /* Responsive: Stack them on mobile */
+    @media (max-width: 700px) {
+      .main-wrapper {
+        flex-direction: column;
+        align-items: center;
+      }
+      .side-cards {
+        width: 100%;
+        max-width: 420px;
+        order: 2; /* Move cards below the counter on small screens */
+      }
     }
   </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="main-wrapper">
+  
+  <div class="container">
+    <button class="lang-toggle" onclick="toggleLang()">اردو / English</button>
 
-  <button class="lang-toggle" onclick="toggleLang()">اردو / English</button>
+    <h1 id="title"></h1>
+    <div class="subtitle" id="subtitle"></div>
 
-  <h1 id="title"></h1>
-  <div class="subtitle" id="subtitle"></div>
+    <div class="label" id="countLabel"></div>
+    <div id="count" class="counter">0</div>
 
-  <div class="label" id="countLabel"></div>
-  <div id="count" class="counter">0</div>
+    <button onclick="increase()" id="addBtn"></button>
+    <button class="reset" onclick="reset()" id="resetBtn"></button>
 
-  <button onclick="increase()" id="addBtn"></button>
-  <button class="reset" onclick="reset()" id="resetBtn"></button>
+    <div class="note" id="note"></div>
 
-  <div class="note" id="note"></div>
+    <div class="divider"></div>
 
-  <div class="divider"></div>
+    <div class="whatsapp-box">
+      <p id="shareText"></p>
+      <a class="share" id="waLink" target="_blank">WhatsApp</a>
+    </div>
 
-  <div class="whatsapp-box">
-    <p id="shareText"></p>
-    <a class="share" id="waLink" target="_blank">WhatsApp</a>
+    <div class="divider"></div>
+
+    <div class="label" id="goalLabel"></div>
+    <div class="goal" id="goalText"></div>
   </div>
 
-  <div class="divider"></div>
-
-  <div class="label" id="goalLabel"></div>
-  <div class="goal" id="goalText"></div>
+  <div class="side-cards">
+    <div class="card" onclick="increase()">
+      <h3>Card 1</h3>
+      <p id="card1Sub">کلک کریں</p>
+    </div>
+    <div class="card" onclick="increase()">
+      <h3>Card 2</h3>
+      <p id="card2Sub">کلک کریں</p>
+    </div>
+    <div class="card" onclick="increase()">
+      <h3>Card 3</h3>
+      <p id="card3Sub">کلک کریں</p>
+    </div>
+  </div>
 
 </div>
 
@@ -165,7 +145,8 @@
       shareText: "اس نیکی میں دوسروں کو بھی شامل کریں",
       waText: "آئیں درود شریف پڑھنے کی نیکی میں شامل ہوں 🤍",
       goalLabel: "ماہانہ ہدف",
-      goalText: "1,000,000 درود شریف"
+      goalText: "1,000,000 درود شریف",
+      cardSub: "کلک کریں"
     },
     en: {
       dir: "ltr",
@@ -178,7 +159,8 @@
       shareText: "Invite others to this good deed",
       waText: "Join this beautiful act of reciting Durood 🤍",
       goalLabel: "Monthly Goal",
-      goalText: "1,000,000 Durood"
+      goalText: "1,000,000 Durood",
+      cardSub: "Click here"
     }
   };
 
@@ -186,19 +168,24 @@
     document.body.dir = content[lang].dir;
     document.documentElement.lang = lang;
 
-    title.innerText = content[lang].title;
-    subtitle.innerText = content[lang].subtitle;
-    countLabel.innerText = content[lang].countLabel;
-    addBtn.innerText = content[lang].addBtn;
-    resetBtn.innerText = content[lang].resetBtn;
-    note.innerText = content[lang].note;
-    shareText.innerText = content[lang].shareText;
-    goalLabel.innerText = content[lang].goalLabel;
-    goalText.innerText = content[lang].goalText;
+    document.getElementById("title").innerText = content[lang].title;
+    document.getElementById("subtitle").innerText = content[lang].subtitle;
+    document.getElementById("countLabel").innerText = content[lang].countLabel;
+    document.getElementById("addBtn").innerText = content[lang].addBtn;
+    document.getElementById("resetBtn").innerText = content[lang].resetBtn;
+    document.getElementById("note").innerText = content[lang].note;
+    document.getElementById("shareText").innerText = content[lang].shareText;
+    document.getElementById("goalLabel").innerText = content[lang].goalLabel;
+    document.getElementById("goalText").innerText = content[lang].goalText;
+    
+    // Update card text
+    document.getElementById("card1Sub").innerText = content[lang].cardSub;
+    document.getElementById("card2Sub").innerText = content[lang].cardSub;
+    document.getElementById("card3Sub").innerText = content[lang].cardSub;
 
-    waLink.href =
+    document.getElementById("waLink").href =
       "https://wa.me/?text=" +
-      encodeURIComponent(content[lang].waText + "\nhttps://yourdomain.com");
+      encodeURIComponent(content[lang].waText + "\n" + window.location.href);
   }
 
   function toggleLang() {
@@ -214,9 +201,11 @@
   }
 
   function reset() {
-    localStorage.removeItem("duroodCount");
-    count = 0;
-    document.getElementById("count").innerText = count;
+    if(confirm("Are you sure?")) {
+      localStorage.removeItem("duroodCount");
+      count = 0;
+      document.getElementById("count").innerText = count;
+    }
   }
 
   applyLang();
