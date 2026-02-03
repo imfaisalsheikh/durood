@@ -5,22 +5,30 @@
   <title>Durood</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* New Layout Styles */
-    .main-wrapper {
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #eef3f0;
       display: flex;
       justify-content: center;
+    }
+
+    /* The outer wrapper that holds everything */
+    .main-wrapper {
+      display: flex;
+      flex-direction: row;
       align-items: flex-start;
-      gap: 20px;
-      max-width: 900px;
+      justify-content: center;
+      gap: 30px;
+      width: 100%;
+      max-width: 1000px; /* Increased to prevent shrinking */
       margin: 40px auto;
       padding: 0 20px;
     }
 
-    /* Keep your existing container as the center piece */
+    /* CENTER BOX: Stays big and doesn't shrink */
     .container {
-      flex: 1;
-      max-width: 420px;
-      margin: 0; /* Override previous margin */
+      flex: 0 0 420px; /* This forces it to stay exactly 420px wide */
       background: #ffffff;
       padding: 30px 20px;
       border-radius: 14px;
@@ -28,164 +36,121 @@
       text-align: center;
     }
 
-    /* The Side Cards Column */
+    /* SIDE CARDS: Smaller and to the side */
     .side-cards {
       display: flex;
       flex-direction: column;
       gap: 15px;
-      width: 200px;
+      flex: 0 1 200px; /* Allows cards to be smaller */
     }
 
     .card {
       background: white;
-      border: 2px solid #0a5c36;
-      border-radius: 12px;
-      padding: 20px;
+      border: 1px solid #0a5c36;
+      border-radius: 10px;
+      padding: 15px;
       text-align: center;
       cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: all 0.2s;
     }
 
     .card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      background: #f3faf6;
+      transform: scale(1.02);
     }
 
     .card h3 {
       margin: 0;
       color: #0a5c36;
-      font-size: 18px;
+      font-size: 16px;
     }
 
-    .card p {
-      margin: 5px 0 0;
-      font-size: 12px;
-      color: #666;
-    }
+    /* Existing styles from your previous code */
+    h1 { color: #0a5c36; margin-bottom: 6px; }
+    .subtitle { color: #555; font-size: 14px; margin-bottom: 25px; }
+    .counter { font-size: 56px; font-weight: bold; color: #0a5c36; margin: 20px 0; }
+    button { width: 100%; font-size: 18px; padding: 14px; background: #0a5c36; color: white; border: none; border-radius: 10px; cursor: pointer; margin-bottom: 12px; }
+    .reset { background: #cccccc; color: #333; }
+    .divider { margin: 25px 0; height: 1px; background: #eee; }
+    .whatsapp-box { background: #f3faf6; border: 1px dashed #0a5c36; padding: 15px; border-radius: 10px; }
+    a.share { display: block; text-decoration: none; background: #25D366; color: white; padding: 12px; border-radius: 8px; }
+    .lang-toggle { font-size: 13px; background: transparent; color: #0a5c36; border: 1px solid #0a5c36; width: auto; padding: 5px 15px; }
 
-    /* Responsive: Stack them on mobile */
-    @media (max-width: 700px) {
+    /* MOBILE: Stacks vertically so it doesn't look squashed on phones */
+    @media (max-width: 750px) {
       .main-wrapper {
         flex-direction: column;
         align-items: center;
       }
-      .side-cards {
-        width: 100%;
+      .container {
+        flex: 1 1 auto;
+        width: 90%;
         max-width: 420px;
-        order: 2; /* Move cards below the counter on small screens */
       }
+      .side-cards {
+        width: 90%;
+        max-width: 420px;
+        flex-direction: row; /* On mobile, cards sit side-by-side */
+      }
+      .card { flex: 1; }
     }
   </style>
 </head>
-
 <body>
 
 <div class="main-wrapper">
   
   <div class="container">
-    <button class="lang-toggle" onclick="toggleLang()">اردو / English</button>
-
+    <button class="lang-toggle" onclick="toggleLang()">English / اردو</button>
     <h1 id="title"></h1>
     <div class="subtitle" id="subtitle"></div>
-
-    <div class="label" id="countLabel"></div>
     <div id="count" class="counter">0</div>
-
     <button onclick="increase()" id="addBtn"></button>
     <button class="reset" onclick="reset()" id="resetBtn"></button>
-
-    <div class="note" id="note"></div>
-
     <div class="divider"></div>
-
     <div class="whatsapp-box">
       <p id="shareText"></p>
       <a class="share" id="waLink" target="_blank">WhatsApp</a>
     </div>
-
-    <div class="divider"></div>
-
-    <div class="label" id="goalLabel"></div>
-    <div class="goal" id="goalText"></div>
   </div>
 
   <div class="side-cards">
     <div class="card" onclick="increase()">
       <h3>Card 1</h3>
-      <p id="card1Sub">کلک کریں</p>
+      <small id="c1">Click</small>
     </div>
     <div class="card" onclick="increase()">
       <h3>Card 2</h3>
-      <p id="card2Sub">کلک کریں</p>
+      <small id="c2">Click</small>
     </div>
     <div class="card" onclick="increase()">
       <h3>Card 3</h3>
-      <p id="card3Sub">کلک کریں</p>
+      <small id="c3">Click</small>
     </div>
   </div>
 
 </div>
 
 <script>
-  let count = localStorage.getItem("duroodCount") || 0;
+  let count = parseInt(localStorage.getItem("duroodCount")) || 0;
   document.getElementById("count").innerText = count;
-
   let lang = localStorage.getItem("lang") || "ur";
 
   const content = {
-    ur: {
-      dir: "rtl",
-      title: "درود شریف",
-      subtitle: "خاموشی سے پڑھیں، اللہ جانتا ہے 🤍",
-      countLabel: "آپ کا آج کا کاؤنٹ",
-      addBtn: "+1 درود",
-      resetBtn: "ری سیٹ",
-      note: "یہ کاؤنٹ صرف آپ کے موبائل یا براؤزر میں محفوظ رہتا ہے",
-      shareText: "اس نیکی میں دوسروں کو بھی شامل کریں",
-      waText: "آئیں درود شریف پڑھنے کی نیکی میں شامل ہوں 🤍",
-      goalLabel: "ماہانہ ہدف",
-      goalText: "1,000,000 درود شریف",
-      cardSub: "کلک کریں"
-    },
-    en: {
-      dir: "ltr",
-      title: "Durood Sharif",
-      subtitle: "Recite quietly. Allah knows 🤍",
-      countLabel: "Your count today",
-      addBtn: "+1 Durood",
-      resetBtn: "Reset",
-      note: "This count is stored only on your device",
-      shareText: "Invite others to this good deed",
-      waText: "Join this beautiful act of reciting Durood 🤍",
-      goalLabel: "Monthly Goal",
-      goalText: "1,000,000 Durood",
-      cardSub: "Click here"
-    }
+    ur: { dir: "rtl", title: "درود شریف", subtitle: "خاموشی سے پڑھیں", addBtn: "+1 درود", resetBtn: "ری سیٹ", shareText: "دوسروں کو شامل کریں", c: "کلک کریں" },
+    en: { dir: "ltr", title: "Durood Sharif", subtitle: "Recite quietly", addBtn: "+1 Durood", resetBtn: "Reset", shareText: "Invite others", c: "Click" }
   };
 
   function applyLang() {
     document.body.dir = content[lang].dir;
-    document.documentElement.lang = lang;
-
     document.getElementById("title").innerText = content[lang].title;
     document.getElementById("subtitle").innerText = content[lang].subtitle;
-    document.getElementById("countLabel").innerText = content[lang].countLabel;
     document.getElementById("addBtn").innerText = content[lang].addBtn;
     document.getElementById("resetBtn").innerText = content[lang].resetBtn;
-    document.getElementById("note").innerText = content[lang].note;
     document.getElementById("shareText").innerText = content[lang].shareText;
-    document.getElementById("goalLabel").innerText = content[lang].goalLabel;
-    document.getElementById("goalText").innerText = content[lang].goalText;
-    
-    // Update card text
-    document.getElementById("card1Sub").innerText = content[lang].cardSub;
-    document.getElementById("card2Sub").innerText = content[lang].cardSub;
-    document.getElementById("card3Sub").innerText = content[lang].cardSub;
-
-    document.getElementById("waLink").href =
-      "https://wa.me/?text=" +
-      encodeURIComponent(content[lang].waText + "\n" + window.location.href);
+    document.getElementById("c1").innerText = content[lang].c;
+    document.getElementById("c2").innerText = content[lang].c;
+    document.getElementById("c3").innerText = content[lang].c;
   }
 
   function toggleLang() {
@@ -201,10 +166,10 @@
   }
 
   function reset() {
-    if(confirm("Are you sure?")) {
-      localStorage.removeItem("duroodCount");
+    if(confirm("Reset counter?")) {
       count = 0;
-      document.getElementById("count").innerText = count;
+      localStorage.setItem("duroodCount", 0);
+      document.getElementById("count").innerText = 0;
     }
   }
 
