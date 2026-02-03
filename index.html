@@ -208,34 +208,54 @@
 <script>
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwKuuv_tRIi4EMtl8BsAib7S7zE9VAg-_WCXjqbyAYCcrjgS1CqDaHevAbI4D_alF2A/exec";
 
-  // Fetch from Google Sheet
+  // Fetch Global Data with Cache Bypassing
   async function fetchCounts() {
     try {
-      const response = await fetch(SCRIPT_URL);
+      // The 'cache: no-store' and 'timestamp' ensure the browser sees the REAL total from the sheet
+      const timestamp = new Date().getTime();
+      const response = await fetch(`${SCRIPT_URL}?v=${timestamp}`, {
+        method: "GET",
+        cache: "no-store", // Forces browser to bypass any saved data
+        mode: "cors"
+      });
+      
       const data = await response.json();
-      document.getElementById("duroodCount").innerText = data.durood.toLocaleString();
-      document.getElementById("azkarCount").innerText = data.azkar.toLocaleString();
-      document.getElementById("syncText").innerText = "Updated: " + new Date().toLocaleTimeString();
+      
+      // Ensure we are handling numbers correctly
+      const dCount = parseInt(data.durood) || 0;
+      const aCount = parseInt(data.azkar) || 0;
+
+      document.getElementById("duroodCount").innerText = dCount.toLocaleString();
+      document.getElementById("azkarCount").innerText = aCount.toLocaleString();
+      document.getElementById("syncText").innerText = "Global Total Synced ✅";
+      
     } catch (e) {
-      document.getElementById("syncText").innerText = "Connecting...";
+      console.error("Fetch Error:", e);
+      document.getElementById("syncText").innerText = "Connecting to Live Counter...";
     }
   }
 
-  // Update Google Sheet
+  // Click Function (Updates Excel)
   async function updateGlobal(type) {
-    // Instant UI Update
+    // 1. Instant UI Feedback
     let el = document.getElementById(type + "Count");
-    let current = parseInt(el.innerText.replace(/,/g, ''));
+    let current = parseInt(el.innerText.replace(/,/g, '')) || 0;
     el.innerText = (current + 1).toLocaleString();
 
-    // POST to Google Script
-    fetch(SCRIPT_URL, {
-      method: "POST",
-      mode: 'no-cors',
-      body: JSON.stringify({ action: type })
-    });
+    // 2. Send to Google Sheet
+    try {
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: 'no-cors', // Standard for Google Web Apps
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: type })
+      });
+    } catch (e) {
+      console.error("Post Error:", e);
+    }
   }
 
+  // Language & UI Logic
   let lang = localStorage.getItem("lang") || "ur";
   const content = {
     ur: { dir: "rtl", title: "عالمی تسبیح کاؤنٹر", d: "کل درود شریف", a: "کل اذکار", share: "اس نیکی کو شیئر کریں" },
@@ -258,9 +278,12 @@
     applyLang();
   }
 
+  // Initial Run
   applyLang();
   fetchCounts();
-  setInterval(fetchCounts, 15000); // Check for new counts every 15 seconds
+  
+  // Refresh every 10 seconds to keep all users updated with the grand total
+  setInterval(fetchCounts, 10000); 
 </script>
 
 </body>
