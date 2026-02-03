@@ -111,21 +111,3 @@ input:checked + .slider:before {
 }
 
 
-
-body {
-  display: flex;
-  justify-content: center; /* center main container */
-  gap: 20px;
-}
-
-.side-durood {
-  width: 200px; /* adjust width */
-  background: #ffffff;
-  padding: 15px;
-  border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.07);
-  max-height: 80vh;
-  overflow-y: auto;
-  position: sticky;
-  top: 20px;
-}
