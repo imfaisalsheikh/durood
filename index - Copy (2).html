@@ -19,7 +19,7 @@
       justify-content: center;
       gap: 25px;
       width: 100%;
-      max-width: 1300px; 
+      max-width: 1200px; 
       margin: 40px auto;
       padding: 0 20px;
     }
@@ -38,7 +38,7 @@
       display: flex;
       flex-direction: column;
       gap: 15px;
-      flex: 0 0 280px; 
+      flex: 0 0 250px; /* Widened slightly for long text */
     }
 
     .left-cards { order: 1; }
@@ -48,44 +48,34 @@
       background: white;
       border: 1px solid #0a5c36;
       border-radius: 10px;
-      padding: 20px;
+      padding: 15px;
       text-align: center;
       cursor: pointer;
       transition: all 0.2s;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
     }
 
-    .card:hover { 
-      background: #f3faf6; 
-      transform: translateY(-2px); 
-      box-shadow: 0 5px 15px rgba(10, 92, 54, 0.1);
-    }
+    .card:hover { background: #f3faf6; transform: translateY(-2px); }
     
+    /* Specific styling for the Arabic text in cards */
     .arabic-text {
-      font-size: 1.2rem;
-      line-height: 1.8;
+      font-size: 1.1rem;
+      line-height: 1.6;
       color: #0a5c36;
+      margin-bottom: 10px;
       display: block;
       direction: rtl;
     }
 
-    .card h3 { 
-      margin: 0 0 12px 0; 
-      color: #0a5c36; 
-      font-size: 11px; 
-      text-transform: uppercase; 
-      letter-spacing: 1.5px; 
-      opacity: 0.6;
-    }
+    .card h3 { margin: 0; color: #0a5c36; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; }
+    .card small { color: #666; font-size: 12px; }
 
+    /* Counter & Text Styles */
     h1 { color: #0a5c36; margin: 10px 0; font-size: 28px; }
     .subtitle { color: #555; font-size: 14px; margin-bottom: 20px; }
     .counter { font-size: 64px; font-weight: bold; color: #0a5c36; margin: 15px 0; }
     
     .main-btn { width: 100%; font-size: 18px; padding: 14px; background: #0a5c36; color: white; border: none; border-radius: 10px; cursor: pointer; margin-bottom: 10px; }
-    .reset { background: #cccccc; color: #333; font-size: 13px; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; }
+    .reset { background: #cccccc; color: #333; font-size: 14px; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; }
     
     .divider { margin: 20px 0; height: 1px; background: #eee; }
     .whatsapp-box { background: #f3faf6; border: 1px dashed #0a5c36; padding: 15px; border-radius: 10px; }
@@ -93,10 +83,12 @@
     
     .lang-toggle { font-size: 12px; background: transparent; color: #0a5c36; border: 1px solid #0a5c36; padding: 4px 12px; border-radius: 5px; cursor: pointer; margin-bottom: 15px;}
 
-    @media (max-width: 1100px) {
+    @media (max-width: 900px) {
       .main-wrapper { flex-direction: column; align-items: center; }
-      .container { flex: 1 1 auto; width: 95%; max-width: 420px; order: 1; }
-      .side-cards { width: 95%; max-width: 420px; order: 2; }
+      .container { flex: 1 1 auto; width: 90%; order: 1; }
+      .side-cards { width: 90%; order: 2; }
+      .left-cards { order: 2; }
+      .right-cards { order: 3; }
     }
   </style>
 </head>
@@ -108,21 +100,27 @@
     <div class="card" onclick="increase()">
       <h3>Durood-e-Ibrahim</h3>
       <span class="arabic-text">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ، اللَّهُمَّ بَارِكَ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ</span>
+     
     </div>
     <div class="card" onclick="increase()">
       <h3>Short Durood</h3>
-      <span class="arabic-text">اللَّهُمَّ صَلِّ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ النَّبِيِّ الْأُمِّيِّ وَعَلَىٰ آلِهِ وَصَحْبِهِ وَسَلِّمْ</span>
+      <span class="arabic-text"> اللَّهُمَّ صَلِّ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ النَّبِيِّ الْأُمِّيِّ وَعَلَىٰ آلِهِ وَصَحْبِهِ وَسَلِّمْ </span>
+      
     </div>
-    <div class="card" onclick="increase()">
+	
+	<div class="card" onclick="increase()">
       <h3>Short Durood</h3>
-      <span class="arabic-text">اَلسَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</span>
+      <span class="arabic-text">اَلسَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ<span>
+      
     </div>
+	
+    
   </div>
 
   <div class="container">
     <button class="lang-toggle" onclick="toggleLang()">English / اردو</button>
     <h1 id="title"></h1>
-    <div id="subtitle" class="subtitle"></div>
+    <div class="subtitle" id="subtitle"></div>
     <div id="count" class="counter">0</div>
     <button onclick="increase()" id="addBtn" class="main-btn"></button>
     <button onclick="reset()" class="reset" id="resetBtn"></button>
@@ -136,19 +134,27 @@
   <div class="side-cards right-cards">
     <div class="card" onclick="increase()">
       <h3>Short Durood</h3>
-      <span class="arabic-text">اللَّهُمَّ صَلِّ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ وَعَلَىٰ آلِهِ وَسَلِّمْ</span>
+      <span class="arabic-text">اللَّهُمَّ صَلِّ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ وَعَلَىٰ آلِهِ وَسَلِّمْ<span>
+    
     </div>
+    <div class="side-cards right-cards">
     <div class="card" onclick="increase()">
       <h3>Short Durood</h3>
-      <span class="arabic-text">صَلَّى اللّٰهُ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ</span>
+      <span class="arabic-text">صَلَّى اللّٰهُ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ<span>
+   
     </div>
-    <div class="card" onclick="increase()">
-      <h3>Durood</h3>
-      <span class="arabic-text">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى أَزْوَاجِهِ وَذُرِّيَّتِهِ كَمَا صَلَّيْتَ عَلَى آلِ إِبْرَاهِيمَ وَبَارِكْ عَلَى مُحَمَّدٍ وَعَلَى أَزْوَاجِهِ وَذُرِّيَّتِهِ كَمَا بَارَكْتَ عَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ</span>
-    </div>
+   <div class="side-cards right-cards">
     <div class="card" onclick="increase()">
       <h3>Short Durood</h3>
-      <span class="arabic-text">اللَّهُمَّ صَلِّ وَ سَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ</span>
+      <span class="arabic-text">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى أَزْوَاجِهِ وَذُرِّيَّتِهِ كَمَا صَلَّيْتَ عَلَى آلِ إِبْرَاهِيمَ وَبَارِكْ عَلَى مُحَمَّدٍ وَعَلَى أَزْوَاجِهِ وَذُرِّيَّتِهِ كَمَا بَارَكْتَ عَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ<span>
+      
+    </div>
+  </div>
+  <div class="side-cards right-cards">
+    <div class="card" onclick="increase()">
+      <h3>Short Durood</h3>
+      <span class="arabic-text">اللَّهُمَّ صَلِّ وَ سَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ<span>
+     
     </div>
   </div>
 
@@ -161,8 +167,8 @@
   let lang = localStorage.getItem("lang") || "ur";
 
   const content = {
-    ur: { dir: "rtl", title: "درود شریف", subtitle: "خاموشی سے پڑھیں، اللہ جانتا ہے 🤍", addBtn: "+1 درود", resetBtn: "ری سیٹ", shareText: "اس نیکی میں دوسروں کو شامل کریں" },
-    en: { dir: "ltr", title: "Durood Sharif", subtitle: "Recite quietly. Allah knows 🤍", addBtn: "+1 Durood", resetBtn: "Reset", shareText: "Invite others to this good deed" }
+    ur: { dir: "rtl", title: "درود شریف", subtitle: "خاموشی سے پڑھیں، اللہ جانتا ہے 🤍", addBtn: "+1 درود", resetBtn: "ری سیٹ", shareText: "اس نیکی میں دوسروں کو شامل کریں", c: "کلک کریں" },
+    en: { dir: "ltr", title: "Durood Sharif", subtitle: "Recite quietly. Allah knows 🤍", addBtn: "+1 Durood", resetBtn: "Reset", shareText: "Invite others to this good deed", c: "Click to +1" }
   };
 
   function applyLang() {
@@ -172,6 +178,8 @@
     document.getElementById("addBtn").innerText = content[lang].addBtn;
     document.getElementById("resetBtn").innerText = content[lang].resetBtn;
     document.getElementById("shareText").innerText = content[lang].shareText;
+    
+    document.querySelectorAll(".c-txt").forEach(el => el.innerText = content[lang].c);
   }
 
   function toggleLang() {
