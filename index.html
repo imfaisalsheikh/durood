@@ -2,8 +2,7 @@
 <html lang="ur">
 <head>
   <meta charset="UTF-8">
-  <title>Durood</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Durood Sharif Counter</title>
   <style>
     body {
       margin: 0;
@@ -13,36 +12,40 @@
       justify-content: center;
     }
 
-    /* The outer wrapper that holds everything */
+    /* Main Wrapper holding Left, Center, and Right */
     .main-wrapper {
       display: flex;
       flex-direction: row;
       align-items: flex-start;
       justify-content: center;
-      gap: 30px;
+      gap: 25px;
       width: 100%;
-      max-width: 1000px; /* Increased to prevent shrinking */
+      max-width: 1100px; 
       margin: 40px auto;
       padding: 0 20px;
     }
 
-    /* CENTER BOX: Stays big and doesn't shrink */
+    /* CENTER CONTAINER - Stays original size */
     .container {
-      flex: 0 0 420px; /* This forces it to stay exactly 420px wide */
+      flex: 0 0 420px; 
       background: #ffffff;
       padding: 30px 20px;
       border-radius: 14px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.08);
       text-align: center;
+      order: 2; /* Ensures it stays in the middle */
     }
 
-    /* SIDE CARDS: Smaller and to the side */
+    /* SIDE COLUMNS */
     .side-cards {
       display: flex;
       flex-direction: column;
       gap: 15px;
-      flex: 0 1 200px; /* Allows cards to be smaller */
+      flex: 0 0 160px; /* Slimmer side buttons */
     }
+
+    .left-cards { order: 1; }
+    .right-cards { order: 3; }
 
     .card {
       background: white;
@@ -54,45 +57,30 @@
       transition: all 0.2s;
     }
 
-    .card:hover {
-      background: #f3faf6;
-      transform: scale(1.02);
-    }
+    .card:hover { background: #f3faf6; transform: translateY(-2px); }
+    .card h3 { margin: 0; color: #0a5c36; font-size: 14px; }
+    .card small { color: #666; }
 
-    .card h3 {
-      margin: 0;
-      color: #0a5c36;
-      font-size: 16px;
-    }
-
-    /* Existing styles from your previous code */
-    h1 { color: #0a5c36; margin-bottom: 6px; }
-    .subtitle { color: #555; font-size: 14px; margin-bottom: 25px; }
-    .counter { font-size: 56px; font-weight: bold; color: #0a5c36; margin: 20px 0; }
-    button { width: 100%; font-size: 18px; padding: 14px; background: #0a5c36; color: white; border: none; border-radius: 10px; cursor: pointer; margin-bottom: 12px; }
-    .reset { background: #cccccc; color: #333; }
-    .divider { margin: 25px 0; height: 1px; background: #eee; }
+    /* Counter & Text Styles */
+    h1 { color: #0a5c36; margin: 10px 0; font-size: 28px; }
+    .subtitle { color: #555; font-size: 14px; margin-bottom: 20px; }
+    .counter { font-size: 56px; font-weight: bold; color: #0a5c36; margin: 15px 0; }
+    
+    .main-btn { width: 100%; font-size: 18px; padding: 14px; background: #0a5c36; color: white; border: none; border-radius: 10px; cursor: pointer; margin-bottom: 10px; }
+    .reset { background: #cccccc; color: #333; font-size: 14px; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; }
+    
+    .divider { margin: 20px 0; height: 1px; background: #eee; }
     .whatsapp-box { background: #f3faf6; border: 1px dashed #0a5c36; padding: 15px; border-radius: 10px; }
-    a.share { display: block; text-decoration: none; background: #25D366; color: white; padding: 12px; border-radius: 8px; }
-    .lang-toggle { font-size: 13px; background: transparent; color: #0a5c36; border: 1px solid #0a5c36; width: auto; padding: 5px 15px; }
+    a.share { display: block; text-decoration: none; background: #25D366; color: white; padding: 10px; border-radius: 8px; font-weight: bold; }
+    
+    .lang-toggle { font-size: 12px; background: transparent; color: #0a5c36; border: 1px solid #0a5c36; padding: 4px 12px; border-radius: 5px; cursor: pointer; }
 
-    /* MOBILE: Stacks vertically so it doesn't look squashed on phones */
-    @media (max-width: 750px) {
-      .main-wrapper {
-        flex-direction: column;
-        align-items: center;
-      }
-      .container {
-        flex: 1 1 auto;
-        width: 90%;
-        max-width: 420px;
-      }
-      .side-cards {
-        width: 90%;
-        max-width: 420px;
-        flex-direction: row; /* On mobile, cards sit side-by-side */
-      }
-      .card { flex: 1; }
+    /* Responsive for Tablets/Phones */
+    @media (max-width: 900px) {
+      .main-wrapper { flex-direction: column; align-items: center; }
+      .container { flex: 1 1 auto; width: 90%; order: 1; }
+      .side-cards { flex-direction: row; width: 90%; order: 2; flex-wrap: wrap; justify-content: center; }
+      .card { flex: 1 1 120px; }
     }
   </style>
 </head>
@@ -100,45 +88,43 @@
 
 <div class="main-wrapper">
   
+  <div class="side-cards left-cards">
+    <div class="card" onclick="increase()"><h3>Card 1</h3><small class="c-txt">Click</small></div>
+    <div class="card" onclick="increase()"><h3>Card 2</h3><small class="c-txt">Click</small></div>
+    <div class="card" onclick="increase()"><h3>Card 3</h3><small class="c-txt">Click</small></div>
+  </div>
+
   <div class="container">
     <button class="lang-toggle" onclick="toggleLang()">English / اردو</button>
     <h1 id="title"></h1>
     <div class="subtitle" id="subtitle"></div>
     <div id="count" class="counter">0</div>
-    <button onclick="increase()" id="addBtn"></button>
-    <button class="reset" onclick="reset()" id="resetBtn"></button>
+    <button onclick="increase()" id="addBtn" class="main-btn"></button>
+    <button onclick="reset()" class="reset" id="resetBtn"></button>
     <div class="divider"></div>
     <div class="whatsapp-box">
-      <p id="shareText"></p>
+      <p id="shareText" style="font-size: 13px; margin-bottom: 8px;"></p>
       <a class="share" id="waLink" target="_blank">WhatsApp</a>
     </div>
   </div>
 
-  <div class="side-cards">
-    <div class="card" onclick="increase()">
-      <h3>Card 1</h3>
-      <small id="c1">Click</small>
-    </div>
-    <div class="card" onclick="increase()">
-      <h3>Card 2</h3>
-      <small id="c2">Click</small>
-    </div>
-    <div class="card" onclick="increase()">
-      <h3>Card 3</h3>
-      <small id="c3">Click</small>
-    </div>
+  <div class="side-cards right-cards">
+    <div class="card" onclick="increase()"><h3>Card 4</h3><small class="c-txt">Click</small></div>
+    <div class="card" onclick="increase()"><h3>Card 5</h3><small class="c-txt">Click</small></div>
+    <div class="card" onclick="increase()"><h3>Card 6</h3><small class="c-txt">Click</small></div>
   </div>
 
 </div>
 
 <script>
   let count = parseInt(localStorage.getItem("duroodCount")) || 0;
-  document.getElementById("count").innerText = count;
+  document.getElementById("count").innerText = count.toLocaleString();
+  
   let lang = localStorage.getItem("lang") || "ur";
 
   const content = {
-    ur: { dir: "rtl", title: "درود شریف", subtitle: "خاموشی سے پڑھیں", addBtn: "+1 درود", resetBtn: "ری سیٹ", shareText: "دوسروں کو شامل کریں", c: "کلک کریں" },
-    en: { dir: "ltr", title: "Durood Sharif", subtitle: "Recite quietly", addBtn: "+1 Durood", resetBtn: "Reset", shareText: "Invite others", c: "Click" }
+    ur: { dir: "rtl", title: "درود شریف", subtitle: "خاموشی سے پڑھیں، اللہ جانتا ہے 🤍", addBtn: "+1 درود", resetBtn: "ری سیٹ", shareText: "اس نیکی میں دوسروں کو شامل کریں", c: "کلک کریں" },
+    en: { dir: "ltr", title: "Durood Sharif", subtitle: "Recite quietly. Allah knows 🤍", addBtn: "+1 Durood", resetBtn: "Reset", shareText: "Invite others to this good deed", c: "Click" }
   };
 
   function applyLang() {
@@ -148,9 +134,9 @@
     document.getElementById("addBtn").innerText = content[lang].addBtn;
     document.getElementById("resetBtn").innerText = content[lang].resetBtn;
     document.getElementById("shareText").innerText = content[lang].shareText;
-    document.getElementById("c1").innerText = content[lang].c;
-    document.getElementById("c2").innerText = content[lang].c;
-    document.getElementById("c3").innerText = content[lang].c;
+    
+    // Update all card labels
+    document.querySelectorAll(".c-txt").forEach(el => el.innerText = content[lang].c);
   }
 
   function toggleLang() {
@@ -162,14 +148,14 @@
   function increase() {
     count++;
     localStorage.setItem("duroodCount", count);
-    document.getElementById("count").innerText = count;
+    document.getElementById("count").innerText = count.toLocaleString();
   }
 
   function reset() {
-    if(confirm("Reset counter?")) {
+    if(confirm(lang === "ur" ? "کیا آپ واقعی ری سیٹ کرنا چاہتے ہیں؟" : "Are you sure you want to reset?")) {
       count = 0;
       localStorage.setItem("duroodCount", 0);
-      document.getElementById("count").innerText = 0;
+      document.getElementById("count").innerText = "0";
     }
   }
 
