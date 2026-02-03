@@ -5,7 +5,7 @@ body {
   direction: rtl;
 }
 
-/*.container {
+.container {
   max-width: 420px;
   margin: 40px auto;
   background: white;
@@ -13,7 +13,7 @@ body {
   border-radius: 14px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.08);
   text-align: center;
-}*/
+}
 
 h1 {
   color: #0a5c36;
@@ -26,26 +26,12 @@ h1 {
   margin-bottom: 25px;
 }
 
-/*.counter {
+.counter {
   font-size: 48px;
   font-weight: bold;
   color: #0a5c36;
   margin: 20px 0;
-}*/
-
-
-/* Dual Counter Styling */
-    .counter-box { 
-      margin: 10px 0; 
-      padding: 10px; 
-      border-radius: 10px; 
-      background: #f9f9f9; 
-      border: 1px solid #eee; 
-    }
-    .counter-label { font-size: 12px; color: #666; font-weight: bold; }
-    .count-val { font-size: 40px; font-weight: bold; color: #0a5c36; display: block; }
-    .durood-theme { border-left: 5px solid #0a5c36; }
-    .azkar-theme { border-left: 5px solid #27ae60; }
+}
 
 button {
   width: 100%;

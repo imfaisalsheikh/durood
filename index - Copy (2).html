@@ -2,7 +2,7 @@
 <html lang="ur">
 <head>
   <meta charset="UTF-8">
-  <title>Global Durood & Azkar Counter</title>
+  <title>Durood & Azkar Dashboard</title>
   <style>
     body {
       margin: 0;
@@ -12,7 +12,7 @@
       justify-content: center;
     }
 
-    /* Fixed 3-Column Grid Layout */
+    /* Fixed 3-Column Grid: Left, Center, Right */
     .main-wrapper {
       display: grid;
       grid-template-columns: 1fr 400px 1fr;
@@ -21,7 +21,7 @@
       max-width: 1400px; 
       margin: 40px auto;
       padding: 0 20px;
-      direction: ltr; /* Keeps columns physically locked */
+      direction: ltr; /* Keeps columns physically locked in place */
     }
 
     .container {
@@ -34,20 +34,6 @@
       top: 40px;
       height: fit-content;
     }
-
-    /* Dual Counter Boxes */
-    .counter-box { 
-      margin: 12px 0; 
-      padding: 15px; 
-      border-radius: 12px; 
-      background: #f9f9f9; 
-      border: 1px solid #eee; 
-      transition: transform 0.1s;
-    }
-    .counter-label { font-size: 13px; color: #666; font-weight: bold; text-transform: uppercase; }
-    .count-val { font-size: 44px; font-weight: bold; color: #0a5c36; display: block; }
-    .durood-theme { border-left: 6px solid #0a5c36; }
-    .azkar-theme { border-left: 6px solid #27ae60; }
 
     .side-cards {
       display: flex;
@@ -89,7 +75,13 @@
       opacity: 0.5;
     }
 
-    h1 { color: #0a5c36; margin: 0 0 15px 0; font-size: 24px; }
+    h1 { color: #0a5c36; margin: 10px 0; font-size: 26px; }
+    .subtitle { color: #555; font-size: 14px; margin-bottom: 20px; }
+    .counter { font-size: 60px; font-weight: bold; color: #0a5c36; margin: 15px 0; }
+    
+    .main-btn { width: 100%; font-size: 18px; padding: 14px; background: #0a5c36; color: white; border: none; border-radius: 10px; cursor: pointer; margin-bottom: 10px; }
+    .reset { background: #cccccc; color: #333; font-size: 12px; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; }
+    
     .divider { margin: 20px 0; height: 1px; background: #eee; }
     .whatsapp-box { background: #f3faf6; border: 1px dashed #0a5c36; padding: 15px; border-radius: 10px; }
     a.share { display: block; text-decoration: none; background: #25D366; color: white; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 14px; }
@@ -108,37 +100,33 @@
 <div class="main-wrapper">
   
   <div class="side-cards">
-    <div class="card" onclick="updateGlobal('azkar')">
-      <h3>Card 8</h3>
+    <div class="card" onclick="increase()">
+      <h3>Dua For Parents</h3>
       <span class="arabic-text">رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ</span>
     </div>
 
-    <div class="card" onclick="updateGlobal('durood')">
+    <div class="card" onclick="increase()">
       <h3>Durood-e-Ibrahim</h3>
       <span class="arabic-text">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ، اللَّهُمَّ بَارِكَ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ</span>
     </div>
 
-    <div class="card" onclick="updateGlobal('durood')">
+    <div class="card" onclick="increase()">
       <h3>Durood</h3>
       <span class="arabic-text">اللَّهُمَّ صَلِّ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ النَّبِيِّ الْأُمِّيِّ وَعَلَىٰ آلِهِ وَصَحْبِهِ وَسَلِّمْ</span>
     </div>
 
-    <div class="card" onclick="updateGlobal('durood')">
+    <div class="card" onclick="increase()">
       <h3>Durood</h3>
       <span class="arabic-text">اَلسَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</span>
     </div>
 
-    <div class="card" onclick="updateGlobal('durood')">
+    <div class="card" onclick="increase()">
       <h3>Durood</h3>
       <span class="arabic-text">اللَّهُمَّ صَلِّ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ وَعَلَىٰ آلِهِ وَسَلِّمْ</span>
     </div>
 
-    <div class="card" onclick="updateGlobal('durood')">
-      <h3>Durood</h3>
-      <span class="arabic-text">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى أَزْوَاجِهِ وَذُرِّيَّتِهِ كَمَا صَلَّيْتَ عَلَى آلِ إِبْرَاهِيمَ وَبَارِكْ عَلَى مُحَمَّدٍ وَعَلَى أَزْوَاجِهِ وَذُرِّيَّتِهِ كَمَا بَارَكْتَ عَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ</span>
-    </div>
 
-    <div class="card" onclick="updateGlobal('durood')">
+    <div class="card" onclick="increase()">
       <h3>Durood</h3>
       <span class="arabic-text">اللَّهُمَّ صَلِّ وَ سَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ</span>
     </div>
@@ -147,58 +135,50 @@
   <div class="container" id="mainContainer">
     <button class="lang-toggle" onclick="toggleLang()">English / اردو</button>
     <h1 id="title"></h1>
-    
-    <div class="counter-box durood-theme">
-      <span class="counter-label" id="labDurood">Global Durood</span>
-      <span id="duroodCount" class="count-val">0</span>
-    </div>
-
-    <div class="counter-box azkar-theme">
-      <span class="counter-label" id="labAzkar">Global Azkar</span>
-      <span id="azkarCount" class="count-val">0</span>
-    </div>
-
+    <div id="subtitle" class="subtitle"></div>
+    <div id="count" class="counter">0</div>
+    <button onclick="increase()" id="addBtn" class="main-btn"></button>
+    <button onclick="reset()" class="reset" id="resetBtn"></button>
     <div class="divider"></div>
     <div class="whatsapp-box">
       <p id="shareText" style="font-size: 13px; margin-bottom: 8px;"></p>
       <a class="share" id="waLink" target="_blank">WhatsApp</a>
     </div>
-    <p id="syncText" style="font-size:10px; color:#999; margin-top:15px;">Live Sync Enabled</p>
   </div>
 
   <div class="side-cards">
-    <div class="card" onclick="updateGlobal('azkar')">
-      <h3>Card 1</h3>
+    <div class="card" onclick="increase()">
+      <h3>Bismillah</h3>
       <span class="arabic-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</span>
     </div>
 
-    <div class="card" onclick="updateGlobal('azkar')">
-      <h3>Card 2</h3>
+    <div class="card" onclick="increase()">
+      <h3>Subhan Allah</h3>
       <span class="arabic-text">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ سُبْحَانَ اللَّهِ الْعَظِيمِ</span>
     </div>
 
-    <div class="card" onclick="updateGlobal('azkar')">
-      <h3>Card 3</h3>
+    <div class="card" onclick="increase()">
+      <h3>Istigfaar</h3>
       <span class="arabic-text">أسْتَغْفِرُ اللهَ الَّذِي لا إلَهَ إلا هُوَ الحَيُّ القَيُومُ وَأتُوبُ إلَيهِ</span>
     </div>
 
-    <div class="card" onclick="increaseAzkar('azkar')">
-      <h3>Card 4</h3>
+    <div class="card" onclick="increase()">
+      <h3>La Howla Wala</h3>
       <span class="arabic-text">لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِالله</span>
     </div>
 
-    <div class="card" onclick="updateGlobal('durood')">
-      <h3>Card 5 (Short Salawat)</h3>
+    <div class="card" onclick="increase()">
+      <h3>Short Salawat</h3>
       <span class="arabic-text">صَلَّى اللّٰهُ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ</span>
     </div>
 
-    <div class="card" onclick="updateGlobal('azkar')">
-      <h3>Card 6</h3>
+    <div class="card" onclick="increase()">
+      <h3>Magfirat for All</h3>
       <span class="arabic-text">اللَّهُمَّ اغْفِرْ لِلْمُسْلِمِينَ والْمُسْلِمَاتِ وَالمُؤْمِنِينَ وَالمُؤْمِنَاتِ، الأَحيَاءِ مِنهُم وَالأَموَاتِ</span>
     </div>
 
-    <div class="card" onclick="updateGlobal('azkar')">
-      <h3>Card 7</h3>
+    <div class="card" onclick="increase()">
+      <h3>Dua for Parents</h3>
       <span class="arabic-text">رَّب ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا</span>
     </div>
   </div>
@@ -206,50 +186,24 @@
 </div>
 
 <script>
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwKuuv_tRIi4EMtl8BsAib7S7zE9VAg-_WCXjqbyAYCcrjgS1CqDaHevAbI4D_alF2A/exec";
-
-  // Fetch from Google Sheet
-  async function fetchCounts() {
-    try {
-      const response = await fetch(SCRIPT_URL);
-      const data = await response.json();
-      document.getElementById("duroodCount").innerText = data.durood.toLocaleString();
-      document.getElementById("azkarCount").innerText = data.azkar.toLocaleString();
-      document.getElementById("syncText").innerText = "Updated: " + new Date().toLocaleTimeString();
-    } catch (e) {
-      document.getElementById("syncText").innerText = "Connecting...";
-    }
-  }
-
-  // Update Google Sheet
-  async function updateGlobal(type) {
-    // Instant UI Update
-    let el = document.getElementById(type + "Count");
-    let current = parseInt(el.innerText.replace(/,/g, ''));
-    el.innerText = (current + 1).toLocaleString();
-
-    // POST to Google Script
-    fetch(SCRIPT_URL, {
-      method: "POST",
-      mode: 'no-cors',
-      body: JSON.stringify({ action: type })
-    });
-  }
-
+  let count = parseInt(localStorage.getItem("duroodCount")) || 0;
+  document.getElementById("count").innerText = count.toLocaleString();
   let lang = localStorage.getItem("lang") || "ur";
+
   const content = {
-    ur: { dir: "rtl", title: "عالمی تسبیح کاؤنٹر", d: "کل درود شریف", a: "کل اذکار", share: "اس نیکی کو شیئر کریں" },
-    en: { dir: "ltr", title: "Global Tasbih Counter", d: "Total Durood", a: "Total Azkar", share: "Share this deed" }
+    ur: { dir: "rtl", title: "درود و اذکار", subtitle: "خاموشی سے پڑھیں، اللہ جانتا ہے 🤍", addBtn: "+1 تعداد", resetBtn: "ری سیٹ کریں", shareText: "اس نیکی کو شیئر کریں" },
+    en: { dir: "ltr", title: "Durood & Azkar", subtitle: "Recite quietly. Allah knows 🤍", addBtn: "+1 Count", resetBtn: "Reset Counter", shareText: "Share this good deed" }
   };
 
   function applyLang() {
     const container = document.getElementById("mainContainer");
     container.dir = content[lang].dir;
     document.getElementById("title").innerText = content[lang].title;
-    document.getElementById("labDurood").innerText = content[lang].d;
-    document.getElementById("labAzkar").innerText = content[lang].a;
-    document.getElementById("shareText").innerText = content[lang].share;
-    document.getElementById("waLink").href = "https://wa.me/?text=" + encodeURIComponent("Join Global Recitation: " + window.location.href);
+    document.getElementById("subtitle").innerText = content[lang].subtitle;
+    document.getElementById("addBtn").innerText = content[lang].addBtn;
+    document.getElementById("resetBtn").innerText = content[lang].resetBtn;
+    document.getElementById("shareText").innerText = content[lang].shareText;
+    document.getElementById("waLink").href = "https://wa.me/?text=" + encodeURIComponent(content[lang].subtitle + "\n" + window.location.href);
   }
 
   function toggleLang() {
@@ -258,9 +212,21 @@
     applyLang();
   }
 
+  function increase() {
+    count++;
+    localStorage.setItem("duroodCount", count);
+    document.getElementById("count").innerText = count.toLocaleString();
+  }
+
+  function reset() {
+    if(confirm(lang === "ur" ? "کیا آپ واقعی زیرو کرنا چاہتے ہیں؟" : "Reset counter to zero?")) {
+      count = 0;
+      localStorage.setItem("duroodCount", 0);
+      document.getElementById("count").innerText = "0";
+    }
+  }
+
   applyLang();
-  fetchCounts();
-  setInterval(fetchCounts, 15000); // Check for new counts every 15 seconds
 </script>
 
 </body>
