@@ -211,17 +211,15 @@
   // Fetch Global Data with Cache Bypassing
   async function fetchCounts() {
     try {
-      // The 'cache: no-store' and 'timestamp' ensure the browser sees the REAL total from the sheet
       const timestamp = new Date().getTime();
       const response = await fetch(`${SCRIPT_URL}?v=${timestamp}`, {
         method: "GET",
-        cache: "no-store", // Forces browser to bypass any saved data
+        cache: "no-store", 
         mode: "cors"
       });
       
       const data = await response.json();
       
-      // Ensure we are handling numbers correctly
       const dCount = parseInt(data.durood) || 0;
       const aCount = parseInt(data.azkar) || 0;
 
@@ -237,16 +235,14 @@
 
   // Click Function (Updates Excel)
   async function updateGlobal(type) {
-    // 1. Instant UI Feedback
     let el = document.getElementById(type + "Count");
     let current = parseInt(el.innerText.replace(/,/g, '')) || 0;
     el.innerText = (current + 1).toLocaleString();
 
-    // 2. Send to Google Sheet
     try {
       await fetch(SCRIPT_URL, {
         method: "POST",
-        mode: 'no-cors', // Standard for Google Web Apps
+        mode: 'no-cors', 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: type })
       });
@@ -255,11 +251,25 @@
     }
   }
 
-  // Language & UI Logic
+  // Language & UI Logic (Updated with Motivation Text)
   let lang = localStorage.getItem("lang") || "ur";
   const content = {
-    ur: { dir: "rtl", title: "عالمی تسبیح کاؤنٹر", d: "کل درود شریف", a: "کل اذکار", share: "اس نیکی کو شیئر کریں" },
-    en: { dir: "ltr", title: "Global Tasbih Counter", d: "Total Durood", a: "Total Azkar", share: "Share this deed" }
+    ur: { 
+      dir: "rtl", 
+      title: "عالمی تسبیح کاؤنٹر", 
+      d: "کل درود شریف", 
+      a: "کل اذکار", 
+      share: "اس نیکی کو شیئر کریں",
+      motivate: "الحمدللہ! اب تک پوری دنیا سے مسلمان مل کر اتنا پڑھ چکے ہیں۔ آپ بھی اس صدقہ جاریہ میں اپنا حصہ ڈالیں۔"
+    },
+    en: { 
+      dir: "ltr", 
+      title: "Global Tasbih Counter", 
+      d: "Total Durood", 
+      a: "Total Azkar", 
+      share: "Share this deed",
+      motivate: "Alhamdulillah! This is the total recited by Muslims worldwide so far. Join this global circle of reward."
+    }
   };
 
   function applyLang() {
@@ -269,7 +279,13 @@
     document.getElementById("labDurood").innerText = content[lang].d;
     document.getElementById("labAzkar").innerText = content[lang].a;
     document.getElementById("shareText").innerText = content[lang].share;
-    document.getElementById("waLink").href = "https://wa.me/?text=" + encodeURIComponent("Join Global Recitation: " + window.location.href);
+    
+    // This line updates the motivational note on the screen
+    if(document.getElementById("motivateText")) {
+      document.getElementById("motivateText").innerText = content[lang].motivate;
+    }
+
+    document.getElementById("waLink").href = "https://wa.me/?text=" + encodeURIComponent(content[lang].motivate + "\n" + window.location.href);
   }
 
   function toggleLang() {
@@ -282,7 +298,6 @@
   applyLang();
   fetchCounts();
   
-  // Refresh every 10 seconds to keep all users updated with the grand total
   setInterval(fetchCounts, 10000); 
 </script>
 
