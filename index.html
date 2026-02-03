@@ -12,25 +12,17 @@
       justify-content: center;
     }
 
-    /* Grid Layout: Column 1 (Left), Column 2 (Center), Column 3 (Right) */
+    /* Fixed 3-Column Grid: Left, Center, Right */
     .main-wrapper {
       display: grid;
-      grid-template-columns: 1fr 400px 1fr; /* Center is fixed at 400px */
+      grid-template-columns: 1fr 400px 1fr;
       gap: 20px;
       width: 100%;
       max-width: 1400px; 
       margin: 40px auto;
       padding: 0 20px;
+      direction: ltr; /* Keeps columns physically locked in place */
     }
-
-    /* This ensures columns do NOT swap when direction changes to RTL */
-    [dir="rtl"] .main-wrapper {
-      direction: ltr; /* Keeps the grid columns in order */
-    }
-
-    /* Internal text alignment is handled separately */
-    .content-rtl { direction: rtl; text-align: right; }
-    .content-ltr { direction: ltr; text-align: left; }
 
     .container {
       background: #ffffff;
@@ -66,11 +58,11 @@
     }
     
     .arabic-text {
-      font-size: 1.2rem;
-      line-height: 1.7;
+      font-size: 1.25rem;
+      line-height: 1.8;
       color: #0a5c36;
       display: block;
-      direction: rtl; /* Arabic is always RTL */
+      direction: rtl;
       font-weight: 500;
     }
 
@@ -96,13 +88,8 @@
     
     .lang-toggle { font-size: 11px; background: transparent; color: #0a5c36; border: 1px solid #0a5c36; padding: 4px 10px; border-radius: 4px; cursor: pointer; margin-bottom: 15px;}
 
-    /* Mobile view: Stack everything */
     @media (max-width: 1150px) {
-      .main-wrapper { 
-        display: flex;
-        flex-direction: column; 
-        align-items: center; 
-      }
+      .main-wrapper { display: flex; flex-direction: column; align-items: center; }
       .container { position: relative; top: 0; width: 95%; max-width: 420px; margin-bottom: 20px; }
       .side-cards { width: 95%; max-width: 420px; }
     }
@@ -112,57 +99,6 @@
 
 <div class="main-wrapper">
   
-  <div class="side-cards">
-    <div class="card" onclick="increase()">
-      <h3>Card 1</h3>
-      <span class="arabic-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</span>
-    </div>
-
-    <div class="card" onclick="increase()">
-      <h3>Card 2</h3>
-      <span class="arabic-text">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ سُبْحَانَ اللَّهِ الْعَظِيمِ</span>
-    </div>
-
-    <div class="card" onclick="increase()">
-      <h3>Card 3</h3>
-      <span class="arabic-text">أسْتَغْفِرُ اللهَ الَّذِي لا إلَهَ إلا هُوَ الحَيُّ القَيُومُ وَأتُوبُ إلَيهِ</span>
-    </div>
-
-    <div class="card" onclick="increase()">
-      <h3>Card 4</h3>
-      <span class="arabic-text">لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِالله</span>
-    </div>
-
-    <div class="card" onclick="increase()">
-      <h3>Card 5 (Short Salawat)</h3>
-      <span class="arabic-text">صَلَّى اللّٰهُ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ</span>
-    </div>
-
-    <div class="card" onclick="increase()">
-      <h3>Card 6</h3>
-      <span class="arabic-text">اللَّهُمَّ اغْفِرْ لِلْمُسْلِمِينَ والْمُسْلِمَاتِ وَالمُؤْمِنِينَ وَالمُؤْمِنَاتِ، الأَحيَاءِ مِنهُم وَالأَموَاتِ</span>
-    </div>
-
-    <div class="card" onclick="increase()">
-      <h3>Card 7</h3>
-      <span class="arabic-text">رَّب ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا</span>
-    </div>
-  </div>
-
-  <div class="container" id="mainContainer">
-    <button class="lang-toggle" onclick="toggleLang()">English / اردو</button>
-    <h1 id="title"></h1>
-    <div id="subtitle" class="subtitle"></div>
-    <div id="count" class="counter">0</div>
-    <button onclick="increase()" id="addBtn" class="main-btn"></button>
-    <button onclick="reset()" class="reset" id="resetBtn"></button>
-    <div class="divider"></div>
-    <div class="whatsapp-box">
-      <p id="shareText" style="font-size: 13px; margin-bottom: 8px;"></p>
-      <a class="share" id="waLink" target="_blank">WhatsApp</a>
-    </div>
-  </div>
-
   <div class="side-cards">
     <div class="card" onclick="increase()">
       <h3>Card 8</h3>
@@ -200,6 +136,57 @@
     </div>
   </div>
 
+  <div class="container" id="mainContainer">
+    <button class="lang-toggle" onclick="toggleLang()">English / اردو</button>
+    <h1 id="title"></h1>
+    <div id="subtitle" class="subtitle"></div>
+    <div id="count" class="counter">0</div>
+    <button onclick="increase()" id="addBtn" class="main-btn"></button>
+    <button onclick="reset()" class="reset" id="resetBtn"></button>
+    <div class="divider"></div>
+    <div class="whatsapp-box">
+      <p id="shareText" style="font-size: 13px; margin-bottom: 8px;"></p>
+      <a class="share" id="waLink" target="_blank">WhatsApp</a>
+    </div>
+  </div>
+
+  <div class="side-cards">
+    <div class="card" onclick="increase()">
+      <h3>Card 1</h3>
+      <span class="arabic-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</span>
+    </div>
+
+    <div class="card" onclick="increase()">
+      <h3>Card 2</h3>
+      <span class="arabic-text">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ سُبْحَانَ اللَّهِ الْعَظِيمِ</span>
+    </div>
+
+    <div class="card" onclick="increase()">
+      <h3>Card 3</h3>
+      <span class="arabic-text">أسْتَغْفِرُ اللهَ الَّذِي لا إلَهَ إلا هُوَ الحَيُّ القَيُومُ وَأتُوبُ إلَيهِ</span>
+    </div>
+
+    <div class="card" onclick="increase()">
+      <h3>Card 4</h3>
+      <span class="arabic-text">لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِالله</span>
+    </div>
+
+    <div class="card" onclick="increase()">
+      <h3>Card 5 (Short Salawat)</h3>
+      <span class="arabic-text">صَلَّى اللّٰهُ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ</span>
+    </div>
+
+    <div class="card" onclick="increase()">
+      <h3>Card 6</h3>
+      <span class="arabic-text">اللَّهُمَّ اغْفِرْ لِلْمُسْلِمِينَ والْمُسْلِمَاتِ وَالمُؤْمِنِينَ وَالمُؤْمِنَاتِ، الأَحيَاءِ مِنهُم وَالأَموَاتِ</span>
+    </div>
+
+    <div class="card" onclick="increase()">
+      <h3>Card 7</h3>
+      <span class="arabic-text">رَّب ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا</span>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -213,10 +200,8 @@
   };
 
   function applyLang() {
-    // Apply RTL/LTR only to the container text, not the global wrapper layout
     const container = document.getElementById("mainContainer");
     container.dir = content[lang].dir;
-    
     document.getElementById("title").innerText = content[lang].title;
     document.getElementById("subtitle").innerText = content[lang].subtitle;
     document.getElementById("addBtn").innerText = content[lang].addBtn;
