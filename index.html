@@ -2,7 +2,7 @@
 <html lang="ur">
 <head>
   <meta charset="UTF-8">
-  <title>Durood Sharif Counter</title>
+  <title>Durood & Azkar Counter</title>
   <style>
     body {
       margin: 0;
@@ -17,28 +17,31 @@
       flex-direction: row;
       align-items: flex-start;
       justify-content: center;
-      gap: 25px;
+      gap: 20px;
       width: 100%;
-      max-width: 1300px; 
+      max-width: 1400px; 
       margin: 40px auto;
       padding: 0 20px;
     }
 
     .container {
-      flex: 0 0 420px; 
+      flex: 0 0 400px; 
       background: #ffffff;
       padding: 30px 20px;
       border-radius: 14px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.08);
       text-align: center;
       order: 2;
+      position: sticky; /* Keeps the counter visible as you scroll through cards */
+      top: 40px;
     }
 
     .side-cards {
       display: flex;
       flex-direction: column;
       gap: 15px;
-      flex: 0 0 280px; 
+      flex: 1; /* Allows columns to balance based on space */
+      max-width: 350px;
     }
 
     .left-cards { order: 1; }
@@ -52,51 +55,52 @@
       text-align: center;
       cursor: pointer;
       transition: all 0.2s;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
     }
 
     .card:hover { 
       background: #f3faf6; 
       transform: translateY(-2px); 
       box-shadow: 0 5px 15px rgba(10, 92, 54, 0.1);
+      border-color: #27ae60;
     }
     
     .arabic-text {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       line-height: 1.8;
       color: #0a5c36;
       display: block;
       direction: rtl;
+      font-weight: 500;
     }
 
     .card h3 { 
       margin: 0 0 12px 0; 
       color: #0a5c36; 
-      font-size: 11px; 
+      font-size: 10px; 
       text-transform: uppercase; 
-      letter-spacing: 1.5px; 
-      opacity: 0.6;
+      letter-spacing: 1.2px; 
+      opacity: 0.5;
     }
 
-    h1 { color: #0a5c36; margin: 10px 0; font-size: 28px; }
+    h1 { color: #0a5c36; margin: 10px 0; font-size: 26px; }
     .subtitle { color: #555; font-size: 14px; margin-bottom: 20px; }
-    .counter { font-size: 64px; font-weight: bold; color: #0a5c36; margin: 15px 0; }
+    .counter { font-size: 60px; font-weight: bold; color: #0a5c36; margin: 15px 0; }
     
     .main-btn { width: 100%; font-size: 18px; padding: 14px; background: #0a5c36; color: white; border: none; border-radius: 10px; cursor: pointer; margin-bottom: 10px; }
-    .reset { background: #cccccc; color: #333; font-size: 13px; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; }
+    .reset { background: #cccccc; color: #333; font-size: 12px; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; }
     
     .divider { margin: 20px 0; height: 1px; background: #eee; }
     .whatsapp-box { background: #f3faf6; border: 1px dashed #0a5c36; padding: 15px; border-radius: 10px; }
-    a.share { display: block; text-decoration: none; background: #25D366; color: white; padding: 10px; border-radius: 8px; font-weight: bold; }
+    a.share { display: block; text-decoration: none; background: #25D366; color: white; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 14px; }
     
-    .lang-toggle { font-size: 12px; background: transparent; color: #0a5c36; border: 1px solid #0a5c36; padding: 4px 12px; border-radius: 5px; cursor: pointer; margin-bottom: 15px;}
+    .lang-toggle { font-size: 11px; background: transparent; color: #0a5c36; border: 1px solid #0a5c36; padding: 4px 10px; border-radius: 4px; cursor: pointer; margin-bottom: 15px;}
 
-    @media (max-width: 1100px) {
+    @media (max-width: 1150px) {
       .main-wrapper { flex-direction: column; align-items: center; }
-      .container { flex: 1 1 auto; width: 95%; max-width: 420px; order: 1; }
-      .side-cards { width: 95%; max-width: 420px; order: 2; }
+      .container { position: relative; top: 0; width: 95%; max-width: 420px; order: 1; margin-bottom: 20px; }
+      .side-cards { width: 95%; max-width: 420px; }
+      .left-cards { order: 2; }
+      .right-cards { order: 3; }
     }
   </style>
 </head>
@@ -109,13 +113,20 @@
       <h3>Durood-e-Ibrahim</h3>
       <span class="arabic-text">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ، اللَّهُمَّ بَارِكَ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ</span>
     </div>
+
     <div class="card" onclick="increase()">
       <h3>Short Durood</h3>
       <span class="arabic-text">اللَّهُمَّ صَلِّ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ النَّبِيِّ الْأُمِّيِّ وَعَلَىٰ آلِهِ وَصَحْبِهِ وَسَلِّمْ</span>
     </div>
+
     <div class="card" onclick="increase()">
-      <h3>Short Durood</h3>
-      <span class="arabic-text">اَلسَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</span>
+      <h3>Tasbih</h3>
+      <span class="arabic-text">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ سُبْحَانَ اللَّهِ الْعَظِيمِ</span>
+    </div>
+
+    <div class="card" onclick="increase()">
+      <h3>Istighfar</h3>
+      <span class="arabic-text">أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ وَأَتُوبُ إِلَيْهِ</span>
     </div>
   </div>
 
@@ -135,20 +146,23 @@
 
   <div class="side-cards right-cards">
     <div class="card" onclick="increase()">
-      <h3>Short Durood</h3>
+      <h3>Salawat</h3>
       <span class="arabic-text">اللَّهُمَّ صَلِّ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ وَعَلَىٰ آلِهِ وَسَلِّمْ</span>
     </div>
+
     <div class="card" onclick="increase()">
-      <h3>Short Durood</h3>
+      <h3>Short Salawat</h3>
       <span class="arabic-text">صَلَّى اللّٰهُ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ</span>
     </div>
+
     <div class="card" onclick="increase()">
-      <h3>Durood</h3>
-      <span class="arabic-text">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى أَزْوَاجِهِ وَذُرِّيَّتِهِ كَمَا صَلَّيْتَ عَلَى آلِ إِبْرَاهِيمَ وَبَارِكْ عَلَى مُحَمَّدٍ وَعَلَى أَزْوَاجِهِ وَذُرِّيَّتِهِ كَمَا بَارَكْتَ عَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ</span>
+      <h3>Prophetic Prayer</h3>
+      <span class="arabic-text">اَلسَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</span>
     </div>
+
     <div class="card" onclick="increase()">
-      <h3>Short Durood</h3>
-      <span class="arabic-text">اللَّهُمَّ صَلِّ وَ سَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ</span>
+      <h3>Kalima Tayyaba</h3>
+      <span class="arabic-text">لَا إِلٰهَ إِلَّا اللّٰهُ مُحَمَّدٌ رَسُولُ اللّٰهِ</span>
     </div>
   </div>
 
@@ -157,12 +171,11 @@
 <script>
   let count = parseInt(localStorage.getItem("duroodCount")) || 0;
   document.getElementById("count").innerText = count.toLocaleString();
-  
   let lang = localStorage.getItem("lang") || "ur";
 
   const content = {
-    ur: { dir: "rtl", title: "درود شریف", subtitle: "خاموشی سے پڑھیں، اللہ جانتا ہے 🤍", addBtn: "+1 درود", resetBtn: "ری سیٹ", shareText: "اس نیکی میں دوسروں کو شامل کریں" },
-    en: { dir: "ltr", title: "Durood Sharif", subtitle: "Recite quietly. Allah knows 🤍", addBtn: "+1 Durood", resetBtn: "Reset", shareText: "Invite others to this good deed" }
+    ur: { dir: "rtl", title: "درود شریف و اذکار", subtitle: "خاموشی سے پڑھیں، اللہ جانتا ہے 🤍", addBtn: "+1 تعداد", resetBtn: "ری سیٹ کریں", shareText: "اس نیکی کو شیئر کریں" },
+    en: { dir: "ltr", title: "Durood & Azkar", subtitle: "Recite quietly. Allah knows 🤍", addBtn: "+1 Count", resetBtn: "Reset Counter", shareText: "Share this good deed" }
   };
 
   function applyLang() {
@@ -172,6 +185,8 @@
     document.getElementById("addBtn").innerText = content[lang].addBtn;
     document.getElementById("resetBtn").innerText = content[lang].resetBtn;
     document.getElementById("shareText").innerText = content[lang].shareText;
+    
+    document.getElementById("waLink").href = "https://wa.me/?text=" + encodeURIComponent(content[lang].subtitle + "\n" + window.location.href);
   }
 
   function toggleLang() {
@@ -187,7 +202,7 @@
   }
 
   function reset() {
-    if(confirm(lang === "ur" ? "کیا آپ واقعی ری سیٹ کرنا چاہتے ہیں؟" : "Are you sure you want to reset?")) {
+    if(confirm(lang === "ur" ? "کیا آپ واقعی زیرو کرنا چاہتے ہیں؟" : "Reset counter to zero?")) {
       count = 0;
       localStorage.setItem("duroodCount", 0);
       document.getElementById("count").innerText = "0";
