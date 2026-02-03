@@ -110,17 +110,5 @@ input:checked + .slider:before {
   transform: translateX(20px);
 }
 
-.durood-images {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 20px 0;
-  gap: 15px;
-}
 
-.clickable-durood:hover,
-.clickable-durood-text:hover {
-  transform: scale(1.05);
-  transition: transform 0.2s;
-}
 
