@@ -12,11 +12,10 @@
       justify-content: center;
     }
 
+    /* Grid Layout: Column 1 (Left), Column 2 (Center), Column 3 (Right) */
     .main-wrapper {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: 1fr 400px 1fr; /* Center is fixed at 400px */
       gap: 20px;
       width: 100%;
       max-width: 1400px; 
@@ -24,28 +23,31 @@
       padding: 0 20px;
     }
 
+    /* This ensures columns do NOT swap when direction changes to RTL */
+    [dir="rtl"] .main-wrapper {
+      direction: ltr; /* Keeps the grid columns in order */
+    }
+
+    /* Internal text alignment is handled separately */
+    .content-rtl { direction: rtl; text-align: right; }
+    .content-ltr { direction: ltr; text-align: left; }
+
     .container {
-      flex: 0 0 400px; 
       background: #ffffff;
       padding: 30px 20px;
       border-radius: 14px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.08);
       text-align: center;
-      order: 2;
       position: sticky;
       top: 40px;
+      height: fit-content;
     }
 
     .side-cards {
       display: flex;
       flex-direction: column;
       gap: 15px;
-      flex: 1;
-      max-width: 380px;
     }
-
-    .left-cards { order: 1; }
-    .right-cards { order: 3; }
 
     .card {
       background: white;
@@ -68,7 +70,7 @@
       line-height: 1.7;
       color: #0a5c36;
       display: block;
-      direction: rtl;
+      direction: rtl; /* Arabic is always RTL */
       font-weight: 500;
     }
 
@@ -94,9 +96,14 @@
     
     .lang-toggle { font-size: 11px; background: transparent; color: #0a5c36; border: 1px solid #0a5c36; padding: 4px 10px; border-radius: 4px; cursor: pointer; margin-bottom: 15px;}
 
+    /* Mobile view: Stack everything */
     @media (max-width: 1150px) {
-      .main-wrapper { flex-direction: column; align-items: center; }
-      .container { position: relative; top: 0; width: 95%; max-width: 420px; order: 1; margin-bottom: 20px; }
+      .main-wrapper { 
+        display: flex;
+        flex-direction: column; 
+        align-items: center; 
+      }
+      .container { position: relative; top: 0; width: 95%; max-width: 420px; margin-bottom: 20px; }
       .side-cards { width: 95%; max-width: 420px; }
     }
   </style>
@@ -105,44 +112,44 @@
 
 <div class="main-wrapper">
   
-  <div class="side-cards left-cards">
+  <div class="side-cards">
     <div class="card" onclick="increase()">
-      <h3>Bismillah</h3>
+      <h3>Card 1</h3>
       <span class="arabic-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</span>
     </div>
 
     <div class="card" onclick="increase()">
-      <h3>Subhan Allah</h3>
+      <h3>Card 2</h3>
       <span class="arabic-text">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ سُبْحَانَ اللَّهِ الْعَظِيمِ</span>
     </div>
 
     <div class="card" onclick="increase()">
-      <h3>Istigfaar</h3>
+      <h3>Card 3</h3>
       <span class="arabic-text">أسْتَغْفِرُ اللهَ الَّذِي لا إلَهَ إلا هُوَ الحَيُّ القَيُومُ وَأتُوبُ إلَيهِ</span>
     </div>
 
     <div class="card" onclick="increase()">
-      <h3>La Hawala Wala</h3>
+      <h3>Card 4</h3>
       <span class="arabic-text">لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِالله</span>
     </div>
 
     <div class="card" onclick="increase()">
-      <h3>Short Salawat</h3>
+      <h3>Card 5 (Short Salawat)</h3>
       <span class="arabic-text">صَلَّى اللّٰهُ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ</span>
     </div>
 
     <div class="card" onclick="increase()">
-      <h3>Magfirat 1</h3>
+      <h3>Card 6</h3>
       <span class="arabic-text">اللَّهُمَّ اغْفِرْ لِلْمُسْلِمِينَ والْمُسْلِمَاتِ وَالمُؤْمِنِينَ وَالمُؤْمِنَاتِ، الأَحيَاءِ مِنهُم وَالأَموَاتِ</span>
     </div>
 
     <div class="card" onclick="increase()">
-      <h3>For Parents</h3>
+      <h3>Card 7</h3>
       <span class="arabic-text">رَّب ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا</span>
     </div>
   </div>
 
-  <div class="container">
+  <div class="container" id="mainContainer">
     <button class="lang-toggle" onclick="toggleLang()">English / اردو</button>
     <h1 id="title"></h1>
     <div id="subtitle" class="subtitle"></div>
@@ -156,9 +163,9 @@
     </div>
   </div>
 
-  <div class="side-cards right-cards">
+  <div class="side-cards">
     <div class="card" onclick="increase()">
-      <h3>For Parents and All</h3>
+      <h3>Card 8</h3>
       <span class="arabic-text">رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ</span>
     </div>
 
@@ -206,7 +213,10 @@
   };
 
   function applyLang() {
-    document.body.dir = content[lang].dir;
+    // Apply RTL/LTR only to the container text, not the global wrapper layout
+    const container = document.getElementById("mainContainer");
+    container.dir = content[lang].dir;
+    
     document.getElementById("title").innerText = content[lang].title;
     document.getElementById("subtitle").innerText = content[lang].subtitle;
     document.getElementById("addBtn").innerText = content[lang].addBtn;
