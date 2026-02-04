@@ -82,51 +82,8 @@
   
   
   
-  // 1. Updated Selection Logic (Only selects, doesn't count)
-function selectCard(element, type) {
-  // Remove selection from all
-  document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
-  
-  // Highlight current
-  element.classList.add('selected');
-  
-  // Show hint
-  document.getElementById('keyboardHint').style.display = 'block';
-  
-  // Set the active type but DO NOT call updateGlobal(type) here
-  activeType = type;
-}
 
-// 2. Updated Keyboard Listener (Prevents "Ghost" counts)
-window.addEventListener("keydown", (e) => {
-  // If the user presses Escape, deselect
-  if (e.key === "Escape") {
-    deselectAll();
-    return;
-  }
-
-  // Only count if a card is active
-  if (activeType) {
-    // Stop spacebar from scrolling and stop multiple triggers
-    if (e.code === "Space" || e.code === "Enter") {
-      e.preventDefault();
-    }
-    
-    // Use e.repeat to prevent "holding down the key" from counting 100 times
-    if (e.repeat) return; 
-
-    updateGlobal(activeType);
-
-    // Visual feedback
-    const activeCard = document.querySelector('.card.selected');
-    if (activeCard) {
-      activeCard.style.opacity = "0.7";
-      setTimeout(() => activeCard.style.opacity = "1", 80);
-    }
-  }
-});
-
- /* // 2. Selection & Update Logic
+ // 2. Selection & Update Logic
   function selectCard(element, type) {
     document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
     element.classList.add('selected');
@@ -155,7 +112,7 @@ window.addEventListener("keydown", (e) => {
       activeCard.style.opacity = "0.7";
       setTimeout(() => activeCard.style.opacity = "1", 100);
     }
-  });*/
+  });
 
   // 4. Language Logic
   let lang = localStorage.getItem("lang") || "ur";
