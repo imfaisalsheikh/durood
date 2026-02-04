@@ -2,20 +2,20 @@
 <html lang="ur">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Global Durood & Azkar Counter</title>
-  <link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 
 <div class="main-wrapper">
   
   <div class="side-cards">
-    <div class="card" onclick="selectCard(this, 'durood')"><h3>Durood-e-Ibrahim</h3><span class="arabic-text">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ، اللَّهُمَّ بَارِكَ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ</span></div>
+  
+    <div class="card" onclick="selectCard(this, 'durood')"><h3>Durood-e-Ibrahim</h3><span class="arabic-text">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ، اللَّهُمَّ بَارِكَ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ</span></div>
     <div class="card" onclick="selectCard(this, 'durood')"><h3>Durood</h3><span class="arabic-text">اللَّهُمَّ صَلِّ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ النَّبِيِّ الْأُمِّيِّ وَعَلَىٰ آلِهِ وَصَحْبِهِ وَسَلِّمْ</span></div>
     <div class="card" onclick="selectCard(this, 'durood')"><h3>Durood</h3><span class="arabic-text">اَلسَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</span></div>
-    <div class="card" onclick="selectCard(this, 'durood')"><h3>Durood</h3><span class="arabic-text">اللَّهُمَّ صَلِّ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ النَّبِيِّ الْأُمِّيِّ وَعَلَىٰ آلِهِ وَصَحْبِهِ وَسَلِّمْ</span></div>
-    <div class="card" onclick="selectCard(this, 'durood')"><h3>Durood</h3><span class="arabic-text">اللَّهُمَّ صَلِّ وَ سَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ</span></div>
+	<div class="card" onclick="selectCard(this, 'durood')"><h3>Durood</h3><span class="arabic-text">اللَّهُمَّ صَلِّ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ النَّبِيِّ الْأُمِّيِّ وَعَلَىٰ آلِهِ وَصَحْبِهِ وَسَلِّمْ</span></div>
+	<div class="card" onclick="selectCard(this, 'durood')"><h3>Durood</h3><span class="arabic-text">اللَّهُمَّ صَلِّ وَ سَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ</span></div>
   </div>
 
   <div class="container" id="mainContainer">
@@ -35,13 +35,14 @@
     <div class="motivation-note">
       <p id="motivateText" style="margin:0;"></p>
     </div>
+	
 
-    <div id="keyboardHint" style="display:none; font-size: 12px; color: #795548; background: #fff8e1; padding: 10px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #ffe082;">
-      <div style="margin-bottom: 5px;">⌨️ Keyboard Mode Active: Press any key to count</div>
-      <button onclick="deselectAll()" style="background: #795548; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px;">
-        Stop Keyboard Mode
-      </button>
-    </div>
+<div id="keyboardHint" style="display:none; font-size: 12px; color: #795548; background: #fff8e1; padding: 10px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #ffe082;">
+  <div style="margin-bottom: 5px;">⌨️ Keyboard Mode Active: Press any key to count</div>
+  <button onclick="deselectAll()" style="background: #795548; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px;">
+    Stop Keyboard Mode
+  </button>
+</div>
 
     <div class="divider"></div>
     <div class="whatsapp-box">
@@ -56,8 +57,8 @@
     <div class="card" onclick="selectCard(this, 'azkar')"><h3>Suban Allah</h3><span class="arabic-text">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ سُبْحَانَ اللَّهِ الْعَظِيمِ</span></div>
     <div class="card" onclick="selectCard(this, 'azkar')"><h3>Istigfaar</h3><span class="arabic-text">أسْتَغْفِرُ اللهَ الَّذِي لا إلَهَ إلا هُوَ الحَيُّ القَيُومُ وَأتُوبُ إلَيهِ</span></div>
     <div class="card" onclick="selectCard(this, 'azkar')"><h3>La Howla</h3><span class="arabic-text">لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِالله</span></div>
-    <div class="card" onclick="selectCard(this, 'azkar')"><h3>Dua for Parents</h3><span class="arabic-text">رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ</span></div>
-    <div class="card" onclick="selectCard(this, 'azkar')"><h3>Dua for Parents</h3><span class="arabic-text">رَّب ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا</span></div>
+	  <div class="card" onclick="selectCard(this, 'azkar')"><h3>Dua for Parents</h3><span class="arabic-text">رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ</span></div>
+	  <div class="card" onclick="selectCard(this, 'azkar')"><h3>Dua for Parents</h3><span class="arabic-text">رَّب ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا</span></div>
   </div>
 
 </div>
@@ -66,6 +67,7 @@
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwKuuv_tRIi4EMtl8BsAib7S7zE9VAg-_WCXjqbyAYCcrjgS1CqDaHevAbI4D_alF2A/exec";
   let activeType = null;
 
+  // 1. Fetching Logic
   async function fetchCounts() {
     try {
       const response = await fetch(`${SCRIPT_URL}?v=${new Date().getTime()}`, { cache: "no-store" });
@@ -76,12 +78,14 @@
     } catch (e) { console.error(e); }
   }
 
+  // 2. Selection & Update Logic
   function selectCard(element, type) {
     document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
     element.classList.add('selected');
-    document.getElementById('keyboardHint').style.display = 'block';
+	// Show the keyboard hint
+  document.getElementById('keyboardHint').style.display = 'block';
     activeType = type;
-    updateGlobal(type);
+    updateGlobal(type); // Update on first click
   }
 
   async function updateGlobal(type) {
@@ -89,9 +93,23 @@
     let el = document.getElementById(type + "Count");
     let current = parseInt(el.innerText.replace(/,/g, '')) || 0;
     el.innerText = (current + 1).toLocaleString();
+    
     fetch(SCRIPT_URL, { method: "POST", mode: 'no-cors', body: JSON.stringify({ action: type }) });
   }
 
+  // 3. Keyboard Listener (Any Key Support)
+  window.addEventListener("keydown", (e) => {
+    if (activeType) {
+      if (e.code === "Space") e.preventDefault(); // Stop page jumping
+      updateGlobal(activeType);
+      
+      const activeCard = document.querySelector('.card.selected');
+      activeCard.style.opacity = "0.7";
+      setTimeout(() => activeCard.style.opacity = "1", 100);
+    }
+  });
+
+  // 4. Language Logic
   let lang = localStorage.getItem("lang") || "ur";
   const content = {
     ur: { dir: "rtl", title: "عالمی تسبیح کاؤنٹر", d: "کل درود شریف", a: "کل اذکار", share: "اس نیکی کو شیئر کریں", motivate: "الحمدللہ! اب تک پوری دنیا سے مسلمان مل کر اتنا پڑھ چکے ہیں۔ آپ بھی اس صدقہ جاریہ میں اپنا حصہ ڈالیں۔" },
@@ -116,27 +134,37 @@
     fetchCounts();
   }
 
-  function deselectAll() {
-    document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
-    document.getElementById('keyboardHint').style.display = 'none';
-    activeType = null;
+function deselectAll() {
+  // 1. Remove the 'selected' class from all cards
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+  
+  // 2. Hide the keyboard hint
+  document.getElementById('keyboardHint').style.display = 'none';
+  
+  // 3. Reset the activeType so the keyboard listener does nothing
+  activeType = null;
+}
+
+// Optional: Allow the 'Escape' key to exit keyboard mode automatically
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    deselectAll();
+    return;
   }
 
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      deselectAll();
-      return;
+  if (activeType) {
+    if (e.code === "Space") e.preventDefault();
+    
+    const selectedCard = document.querySelector('.card.selected');
+    if (selectedCard) {
+      selectedCard.style.opacity = "0.7";
+      setTimeout(() => selectedCard.style.opacity = "1", 80);
     }
-    if (activeType) {
-      if (e.code === "Space") e.preventDefault();
-      updateGlobal(activeType);
-      const activeCard = document.querySelector('.card.selected');
-      if (activeCard) {
-        activeCard.style.opacity = "0.7";
-        setTimeout(() => activeCard.style.opacity = "1", 80);
-      }
-    }
-  });
+
+    updateGlobal(activeType);
+  }
+});
+
 
   applyLang();
   fetchCounts();
