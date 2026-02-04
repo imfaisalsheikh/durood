@@ -2,7 +2,7 @@
 <html lang="ur">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Global Durood & Azkar Counter</title>
   <link rel="stylesheet" href="assets/style.css">
 </head>
@@ -63,17 +63,19 @@
 </div>
 
 <script>
-  // ... (Keep your script exactly the same as your previous message) ...
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwKuuv_tRIi4EMtl8BsAib7S7zE9VAg-_WCXjqbyAYCcrjgS1CqDaHevAbI4D_alF2A/exec";
   let activeType = null;
+
   async function fetchCounts() {
     try {
       const response = await fetch(`${SCRIPT_URL}?v=${new Date().getTime()}`, { cache: "no-store" });
       const data = await response.json();
       document.getElementById("duroodCount").innerText = (parseInt(data.durood) || 0).toLocaleString();
       document.getElementById("azkarCount").innerText = (parseInt(data.azkar) || 0).toLocaleString();
+      document.getElementById("syncText").innerText = (lang === "ur" ? "ہر 10 سیکنڈ میں اپ ڈیٹ ہوتا ہے ✅" : "Syncs every 10 seconds ✅");
     } catch (e) { console.error(e); }
   }
+
   function selectCard(element, type) {
     document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
     element.classList.add('selected');
@@ -81,6 +83,7 @@
     activeType = type;
     updateGlobal(type);
   }
+
   async function updateGlobal(type) {
     if (!type) return;
     let el = document.getElementById(type + "Count");
@@ -88,11 +91,13 @@
     el.innerText = (current + 1).toLocaleString();
     fetch(SCRIPT_URL, { method: "POST", mode: 'no-cors', body: JSON.stringify({ action: type }) });
   }
+
   let lang = localStorage.getItem("lang") || "ur";
   const content = {
     ur: { dir: "rtl", title: "عالمی تسبیح کاؤنٹر", d: "کل درود شریف", a: "کل اذکار", share: "اس نیکی کو شیئر کریں", motivate: "الحمدللہ! اب تک پوری دنیا سے مسلمان مل کر اتنا پڑھ چکے ہیں۔ آپ بھی اس صدقہ جاریہ میں اپنا حصہ ڈالیں۔" },
     en: { dir: "ltr", title: "Global Tasbih Counter", d: "Total Durood Shareef", a: "Total Azkar", share: "Share this deed", motivate: "Alhamdulillah! This is the total recited by Muslims worldwide so far. Join this global circle of reward." }
   };
+
   function applyLang() {
     const container = document.getElementById("mainContainer");
     container.dir = content[lang].dir;
@@ -103,24 +108,36 @@
     document.getElementById("motivateText").innerText = content[lang].motivate;
     document.getElementById("waLink").href = "https://wa.me/?text=" + encodeURIComponent(content[lang].motivate + " " + window.location.href);
   }
+
   function toggleLang() {
     lang = (lang === "ur") ? "en" : "ur";
     localStorage.setItem("lang", lang);
     applyLang();
     fetchCounts();
   }
+
   function deselectAll() {
     document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
     document.getElementById('keyboardHint').style.display = 'none';
     activeType = null;
   }
+
   window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") deselectAll();
+    if (e.key === "Escape") {
+      deselectAll();
+      return;
+    }
     if (activeType) {
       if (e.code === "Space") e.preventDefault();
       updateGlobal(activeType);
+      const activeCard = document.querySelector('.card.selected');
+      if (activeCard) {
+        activeCard.style.opacity = "0.7";
+        setTimeout(() => activeCard.style.opacity = "1", 80);
+      }
     }
   });
+
   applyLang();
   fetchCounts();
   setInterval(fetchCounts, 10000);

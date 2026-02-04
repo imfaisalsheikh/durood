@@ -1,129 +1,128 @@
-<!DOCTYPE html>
-<html lang="ur">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Global Durood & Azkar Counter</title>
-  <link rel="stylesheet" href="assets/style.css">
-</head>
-<body>
+/* 1. Global & Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
 
-<div class="main-wrapper">
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #eef3f0;
+}
+
+/* 2. Responsive Grid Layout */
+.main-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 400px 1fr;
+  gap: 20px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* 3. Center Container */
+.container {
+  background: white;
+  padding: 30px 20px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  text-align: center;
+  position: sticky;
+  top: 40px;
+  height: fit-content;
+}
+
+/* 4. Counters */
+.counter-box { 
+  margin: 10px 0; 
+  padding: 10px; 
+  border-radius: 10px; 
+  background: #f9f9f9; 
+  border: 1px solid #eee; 
+}
+.counter-label { font-size: 12px; color: #666; font-weight: bold; }
+.count-val { font-size: 40px; font-weight: bold; color: #0a5c36; display: block; }
+.durood-theme { border-right: 5px solid #0a5c36; }
+.azkar-theme { border-right: 5px solid #27ae60; }
+
+.motivation-note {
+  background: #fff8e1; border: 1px solid #ffe082; color: #795548;
+  padding: 12px; border-radius: 10px; font-size: 14px; margin: 15px 0; line-height: 1.4;
+}
+
+/* 5. Cards & Arabic Typography */
+.card {
+  background: white;
+  border: 1px solid #0a5c36;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  direction: rtl;
+  height: auto; 
+  min-height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card h3 { margin: 0 0 5px 0; font-size: 10px; color: #0a5c36; opacity: 0.6; }
+
+.arabic-text {
+  font-family: 'Amiri', serif;
+  font-size: 1.6rem;
+  line-height: 2.2;
+  color: #0a5c36;
+  display: block;
+}
+
+.card.selected {
+  background: #0a5c36 !important;
+  color: white !important;
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(10, 92, 54, 0.3);
+}
+
+.card.selected .arabic-text, .card.selected h3 {
+  color: white !important;
+}
+
+/* 6. UI Helpers */
+.divider { margin: 20px 0; height: 1px; background: #eee; }
+.whatsapp-box { background: #f3faf6; border: 1px dashed #0a5c36; padding: 15px; border-radius: 10px; }
+a.share { display: block; text-decoration: none; background: #25D366; color: white; padding: 10px; border-radius: 8px; font-weight: bold; font-size: 14px; cursor: pointer; }
+.lang-toggle { font-size: 11px; background: transparent; color: #0a5c36; border: 1px solid #0a5c36; padding: 4px 10px; border-radius: 4px; cursor: pointer; margin-bottom: 15px;}
+
+/* 7. MOBILE ADJUSTMENTS */
+@media (max-width: 1150px) {
+  .main-wrapper {
+    display: flex;
+    flex-direction: column; /* Stacks columns vertically */
+    align-items: center;
+    padding: 10px;
+    margin: 10px auto;
+  }
+
+  .container {
+    order: -1; /* Forces Counter to the top of the stack on mobile */
+    position: relative;
+    top: 0;
+    width: 100%;
+    max-width: 420px;
+    margin-bottom: 20px;
+  }
+
+  .side-cards {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .arabic-text {
+    font-size: 1.4rem; /* Slightly smaller for mobile screens */
+  }
   
-  <div class="side-cards">
-    <div class="card" onclick="selectCard(this, 'durood')"><h3>Durood-e-Ibrahim</h3><span class="arabic-text">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ، اللَّهُمَّ بَارِكَ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ، إِنَّكَ حَمِيدٌ مَجِيدٌ</span></div>
-    <div class="card" onclick="selectCard(this, 'durood')"><h3>Durood</h3><span class="arabic-text">اللَّهُمَّ صَلِّ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ النَّبِيِّ الْأُمِّيِّ وَعَلَىٰ آلِهِ وَصَحْبِهِ وَسَلِّمْ</span></div>
-    <div class="card" onclick="selectCard(this, 'durood')"><h3>Durood</h3><span class="arabic-text">اَلسَّلَامُ عَلَيْكَ أَيُّهَا النَّبِيُّ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ</span></div>
-    <div class="card" onclick="selectCard(this, 'durood')"><h3>Durood</h3><span class="arabic-text">اللَّهُمَّ صَلِّ عَلَىٰ سَیِّدِنَا مُحَمَّدٍ النَّبِيِّ الْأُمِّيِّ وَعَلَىٰ آلِهِ وَصَحْبِهِ وَسَلِّمْ</span></div>
-    <div class="card" onclick="selectCard(this, 'durood')"><h3>Durood</h3><span class="arabic-text">اللَّهُمَّ صَلِّ وَ سَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ</span></div>
-  </div>
-
-  <div class="container" id="mainContainer">
-    <button class="lang-toggle" onclick="toggleLang()">English / اردو</button>
-    <h1 id="title"></h1>
-    
-    <div class="counter-box durood-theme">
-      <span class="counter-label" id="labDurood"></span>
-      <span id="duroodCount" class="count-val">0</span>
-    </div>
-
-    <div class="counter-box azkar-theme">
-      <span class="counter-label" id="labAzkar"></span>
-      <span id="azkarCount" class="count-val">0</span>
-    </div>
-
-    <div class="motivation-note">
-      <p id="motivateText" style="margin:0;"></p>
-    </div>
-
-    <div id="keyboardHint" style="display:none; font-size: 12px; color: #795548; background: #fff8e1; padding: 10px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #ffe082;">
-      <div style="margin-bottom: 5px;">⌨️ Keyboard Mode Active: Press any key to count</div>
-      <button onclick="deselectAll()" style="background: #795548; color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px;">
-        Stop Keyboard Mode
-      </button>
-    </div>
-
-    <div class="divider"></div>
-    <div class="whatsapp-box">
-      <p id="shareText" style="font-size: 13px; margin-bottom: 8px;"></p>
-      <a class="share" id="waLink" target="_blank">WhatsApp</a>
-    </div>
-    <p id="syncText"></p>
-  </div>
-
-  <div class="side-cards">
-    <div class="card" onclick="selectCard(this, 'azkar')"><h3>Bismillah</h3><span class="arabic-text">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</span></div>
-    <div class="card" onclick="selectCard(this, 'azkar')"><h3>Suban Allah</h3><span class="arabic-text">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ سُبْحَانَ اللَّهِ الْعَظِيمِ</span></div>
-    <div class="card" onclick="selectCard(this, 'azkar')"><h3>Istigfaar</h3><span class="arabic-text">أسْتَغْفِرُ اللهَ الَّذِي لا إلَهَ إلا هُوَ الحَيُّ القَيُومُ وَأتُوبُ إلَيهِ</span></div>
-    <div class="card" onclick="selectCard(this, 'azkar')"><h3>La Howla</h3><span class="arabic-text">لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِالله</span></div>
-    <div class="card" onclick="selectCard(this, 'azkar')"><h3>Dua for Parents</h3><span class="arabic-text">رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ</span></div>
-    <div class="card" onclick="selectCard(this, 'azkar')"><h3>Dua for Parents</h3><span class="arabic-text">رَّب ارْحَمْهُمَا كَمَا رَبَّيَانِي صَغِيرًا</span></div>
-  </div>
-
-</div>
-
-<script>
-  // ... (Keep your script exactly the same as your previous message) ...
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwKuuv_tRIi4EMtl8BsAib7S7zE9VAg-_WCXjqbyAYCcrjgS1CqDaHevAbI4D_alF2A/exec";
-  let activeType = null;
-  async function fetchCounts() {
-    try {
-      const response = await fetch(`${SCRIPT_URL}?v=${new Date().getTime()}`, { cache: "no-store" });
-      const data = await response.json();
-      document.getElementById("duroodCount").innerText = (parseInt(data.durood) || 0).toLocaleString();
-      document.getElementById("azkarCount").innerText = (parseInt(data.azkar) || 0).toLocaleString();
-    } catch (e) { console.error(e); }
+  .count-val {
+    font-size: 32px; /* Smaller numbers so they don't overflow */
   }
-  function selectCard(element, type) {
-    document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
-    element.classList.add('selected');
-    document.getElementById('keyboardHint').style.display = 'block';
-    activeType = type;
-    updateGlobal(type);
-  }
-  async function updateGlobal(type) {
-    if (!type) return;
-    let el = document.getElementById(type + "Count");
-    let current = parseInt(el.innerText.replace(/,/g, '')) || 0;
-    el.innerText = (current + 1).toLocaleString();
-    fetch(SCRIPT_URL, { method: "POST", mode: 'no-cors', body: JSON.stringify({ action: type }) });
-  }
-  let lang = localStorage.getItem("lang") || "ur";
-  const content = {
-    ur: { dir: "rtl", title: "عالمی تسبیح کاؤنٹر", d: "کل درود شریف", a: "کل اذکار", share: "اس نیکی کو شیئر کریں", motivate: "الحمدللہ! اب تک پوری دنیا سے مسلمان مل کر اتنا پڑھ چکے ہیں۔ آپ بھی اس صدقہ جاریہ میں اپنا حصہ ڈالیں۔" },
-    en: { dir: "ltr", title: "Global Tasbih Counter", d: "Total Durood Shareef", a: "Total Azkar", share: "Share this deed", motivate: "Alhamdulillah! This is the total recited by Muslims worldwide so far. Join this global circle of reward." }
-  };
-  function applyLang() {
-    const container = document.getElementById("mainContainer");
-    container.dir = content[lang].dir;
-    document.getElementById("title").innerText = content[lang].title;
-    document.getElementById("labDurood").innerText = content[lang].d;
-    document.getElementById("labAzkar").innerText = content[lang].a;
-    document.getElementById("shareText").innerText = content[lang].share;
-    document.getElementById("motivateText").innerText = content[lang].motivate;
-    document.getElementById("waLink").href = "https://wa.me/?text=" + encodeURIComponent(content[lang].motivate + " " + window.location.href);
-  }
-  function toggleLang() {
-    lang = (lang === "ur") ? "en" : "ur";
-    localStorage.setItem("lang", lang);
-    applyLang();
-    fetchCounts();
-  }
-  function deselectAll() {
-    document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
-    document.getElementById('keyboardHint').style.display = 'none';
-    activeType = null;
-  }
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") deselectAll();
-    if (activeType) {
-      if (e.code === "Space") e.preventDefault();
-      updateGlobal(activeType);
-    }
-  });
-  applyLang();
-  fetchCounts();
-  setInterval(fetchCounts, 10000);
-</script>
-</body>
-</html>
+}
