@@ -1,7 +1,9 @@
-/* 1. Global Setup */
+/* 1. GLOBAL & FONTS */
 @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 html, body {
   margin: 0;
@@ -12,56 +14,66 @@ html, body {
   font-family: system-ui, -apple-system, sans-serif;
 }
 
-/* 2. Layout Wrapper */
+/* 2. LAYOUT WRAPPER */
 .main-wrapper {
   display: flex;
   flex-direction: column;
-  padding: 15px;
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
 }
 
-/* 3. Center Container (The Counter Card) */
+/* 3. STICKY TOP CONTAINER */
 .container {
   order: -1; /* Top on mobile */
   background: white;
-  padding: 25px 20px;
-  border-radius: 20px;
+  padding: 15px 15px;
   text-align: center;
-  margin-bottom: 25px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  
+  /* Sticky Logic */
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  
+  /* Visuals */
+  border-bottom: 2px solid #0a5c36;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
 }
 
-/* 4. The Themed Counter Blocks */
+/* 4. COMPACT COUNTER BLOCKS (Sticky Header) */
 .counter-box { 
-  margin: 15px 0; 
-  padding: 20px; 
-  border-radius: 15px; 
+  margin: 8px 0; 
+  padding: 12px; 
+  border-radius: 10px; 
   background: #f9fbf9; 
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
 }
 
-.durood-theme { border-left: 8px solid #0a5c36; background: #f0f7f3; }
-.azkar-theme { border-left: 8px solid #27ae60; background: #f4faf6; }
+.durood-theme { border-left: 5px solid #0a5c36; background: #f0f7f3; }
+.azkar-theme { border-left: 5px solid #27ae60; background: #f4faf6; }
 
 .counter-label { 
-  font-size: 14px; 
+  font-size: 12px; 
   color: #666; 
-  font-weight: bold; 
-  margin-bottom: 5px;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 .count-val { 
-  font-size: 42px; 
+  font-size: 28px; 
   font-weight: 800; 
   color: #0a5c36; 
 }
 
-/* 5. Arabic Cards */
-.side-cards { width: 100%; }
+/* 5. SCROLLING AREA (Cards) */
+.side-cards { 
+  width: 100%; 
+  padding: 15px;
+}
 
 .card {
   background: white;
@@ -71,43 +83,66 @@ html, body {
   margin-bottom: 15px;
   cursor: pointer;
   direction: rtl;
-  transition: transform 0.2s;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
 }
 
 .card.selected {
   border: 2px solid #0a5c36;
   background: #f0f7f3;
-  transform: scale(1.02);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(10, 92, 54, 0.15);
 }
 
 .arabic-text {
   font-family: 'Amiri', serif;
   font-size: 1.5rem;
   line-height: 2.2;
-  color: #0a5c36;
+  color: #000; /* Darker for better mobile readability */
   display: block;
   text-align: center;
 }
 
-/* 6. Desktop Mode */
+.card h3 {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #0a5c36;
+  text-align: center;
+  opacity: 0.8;
+}
+
+/* 6. DESKTOP ADAPTATION (3 Columns) */
 @media (min-width: 1024px) {
   .main-wrapper {
     display: grid;
     grid-template-columns: 1fr 420px 1fr;
-    gap: 25px;
-    padding: 40px;
+    gap: 20px;
+    padding: 20px;
     flex-direction: row;
   }
   
   .container {
     order: 0;
     position: sticky;
-    top: 40px;
+    top: 20px; /* Floats slightly from top on desktop */
+    border-radius: 20px;
+    border-bottom: none;
+    height: fit-content;
+  }
+  
+  .counter-box {
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+  .count-val {
+    font-size: 42px;
   }
 }
 
-/* UI Elements */
-.motivation-note { background: #fff8e1; color: #795548; padding: 15px; border-radius: 12px; font-size: 14px; margin-top: 15px; border: 1px solid #ffe082; }
-.lang-toggle { background: #0a5c36; color: white; border: none; padding: 8px 16px; border-radius: 20px; margin-bottom: 20px; cursor: pointer; }
-.whatsapp-box { margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: 12px; border: 1px dashed #25D366; }
-a.share { display: block; background: #25D366; color: white; padding: 12px; border-radius: 10px; text-decoration: none; font-weight: bold; }
+/* 7. UI ELEMENTS */
+.motivation-note { background: #fff8e1; color: #795548; padding: 12px; border-radius: 10px; font-size: 13px; margin: 10px 0; border: 1px solid #ffe082; }
+.lang-toggle { background: #0a5c36; color: white; border: none; padding: 6px 12px; border-radius: 15px; font-size: 12px; cursor: pointer; margin-bottom: 10px; }
+.whatsapp-box { margin-top: 15px; padding: 15px; background: #e8f5e9; border-radius: 10px; border: 1px dashed #25D366; }
+a.share { display: block; background: #25D366; color: white; padding: 10px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px; }
+#keyboardHint { font-size: 11px !important; }
